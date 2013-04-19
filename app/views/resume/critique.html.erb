@@ -1,3 +1,6 @@
+<script src="http://connect.facebook.net/en_US/all.js"></script>
+<div id="fb-root"></div>
+
 <center>
 	<div id="main_body_column">
 		<div id="header_bar">
@@ -35,12 +38,23 @@
 				<div class="step_header">Invite Friends to Review</div>
 				<div class="step_description">Use facebook or email to share your resume with friends so they can give you a constructive review of your resume.</div>
 				
-				<h2>Ideal Collaborators</h2>
-					<div id="FBProfilesIdeal"></div>
-				<h2>Collaborators</h2>		
-					<div id="FBProfiles"></div>
-					<div id="SocialUIData" data-controller="member" data-action="profiles" data-params='{"onets":["11-9199.00","41-3099.00","41-3031.02"]}' data-callback='showConnectionsIdeal'></div>
-					<div id="SocialUIData" data-controller="member" data-action="profiles" data-params='{"keywords":"adam"}' data-callback='showConnections'></div>		
+				<div>
+					Inviate someone from facebook:
+					<center>
+						<div style="background-color:#3b5a9b;color:white;border-radius:5px;padding:10px;text-align:center;cursor:pointer;width:255px;" onclick="sendFBInvitation();">
+							Invite a Facebook Friend to Review
+						</div>
+					</center>
+				</div>
+				<div style="padding-bottom:30px;">
+					<h2>Ideal Collaborators</h2>
+						<div id="FBProfilesIdeal"></div>
+					<h2>Collaborators</h2>		
+						<div id="FBProfiles"></div>
+						<div id="SocialUIData" data-controller="member" data-action="profiles" data-params='{"onets":["11-9199.00","41-3099.00","41-3031.02"]}' data-callback='showConnectionsIdeal'></div>
+						<div id="SocialUIData" data-controller="member" data-action="profiles" data-params='{"keywords":"adam"}' data-callback='showConnections'></div>		
+				</div>
+				
 				<div onclick="moveToStep3()" class="next_button">
 					<b>Done Inviting  &gt;</b>
 				</div>
@@ -194,7 +208,7 @@
 		clearBlackoutDivs();
 		var buttonDiv = $("<div id='hideButton'>");
 		buttonDiv.addClass('hide_data_bubble');
-		buttonDiv.css({"top":yPosition-10,"left":xPosition});
+		buttonDiv.css({"top":yPosition-12,"left":xPosition});
 		buttonDiv.append($("<div style='float:left;padding:2px;border-right:1px solid #1E608F;'>X</div>"));
 		buttonDiv.append($("<div style='float:left;padding-top:2px;padding-left:8px;padding-right:8px;'>Hide</div>"));
 		buttonDiv.append($("<div style='clear:both;'></div>"));
@@ -231,20 +245,42 @@
 //	$("#htmlresume").click(function(){clearHighlightedText();});
 	$("#htmlresume").mouseup(function(e){
 		getHighlightedText();
-		showBlackoutButton(e.pageY);
+			if(highlightedText != null && highlightedText != ""){
+				showBlackoutButton(e.pageY);
+			}
 		});
 		
 
   function showConnectionsIdeal(payload) {
   	$(payload.json_data.profiles).each(function(){
-  		$("#FBProfilesIdeal").append($("<div>"+this.name+"</div>"));
+  	  var profile_div = $("<div>");
+  	  
+  		var pic_div = $("<div>").html('<img src="'+this.pic_url+'" width="30px">').css("float","left");
+  		var detail_info = $("<div>").css({"float":"left","font-size":"12px"}).html("<b>"+this.name+"</b>");
+
+  	  if(this.last_job_title) {
+	  	  detail_info.append($("<div>").html(this.last_job_title));
+	  	}
+  	  profile_div.append(pic_div).append(detail_info).append($("<div style='clear:both;'>"));
+  	  
+  		$("#FBProfilesIdeal").append(profile_div);
   		console.log(this);
   	});
   }
 		
   function showConnections(payload) {
   	$(payload.json_data.profiles).each(function(){
-  		$("#FBProfiles").append($("<div>"+this.name+"</div>"));
+  	  var profile_div = $("<div>");
+  	  
+  		var pic_div = $("<div>").html('<img src="'+this.pic_url+'" width="30px">').css("float","left");
+  		var detail_info = $("<div>").css({"float":"left","font-size":"12px"}).html("<b>"+this.name+"</b>");
+
+  	  if(this.last_job_title) {
+	  	  detail_info.append($("<div>").html(this.last_job_title));
+	  	}
+  	  profile_div.append(pic_div).append(detail_info).append($("<div style='clear:both;'>"));
+  	  
+  		$("#FBProfiles").append(profile_div);
   		console.log(this);
   	});
   }
@@ -258,3 +294,19 @@
 	<script src="http://sui.careerbuilder.com/javascript/social-ui.js" type="text/javascript" data-sui_type="SUILib">
 		{"run_mode":"PROD","auto_login":"<%="#{request.protocol}#{request.host_with_port}"%>/same_origin_hook"}
 	</script> 
+	
+	<script>
+		// assume we are already logged in
+		FB.init({appId: '<%= SITE_CONFIG["fb_app_id"] %>', xfbml: true, cookie: true});
+
+
+		function sendFBInvitation() {		
+      FB.ui({
+          method: 'send',
+          name: 'Facebook Dialogs',
+          link: 'http://resumecritique.herokuapp.com/resume/critique',
+          name: 'Adam wants you to review his resume.',
+          description: "Adam would love it if you could review and critique his resume.  It's fast, simple and could help Adam land that next dream job!"
+          });
+  	}
+	 </script>
