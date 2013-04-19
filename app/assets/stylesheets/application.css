@@ -11,3 +11,76 @@
  *= require_self
  *= require_tree .
  */
+
+body {background-color:#F1F1F1;margin: 0;font-family: helvetica, sans-serif;}
+
+#main_body_column {
+	text-align:left;
+	border-left:1px solid #CCC;
+	border-right:1px solid #CCC;
+	width:1060px;
+	background-color:white;
+}
+
+#header_bar {
+	background-color:#203452;
+	color:white;
+	padding: 20px;
+	font-size: 25px;
+	font-family: helvetica, sans-serif;
+}
+
+.next_button {
+	cursor:pointer;
+	text-align:center;
+	font-family:arial;
+	color:white;
+	background-color:rgb(230, 107, 38);
+	border-radius:3px;
+	width:150px;
+	padding:10px;	
+}
+
+.private_data_bubble {
+	float:left;
+	background-color:#A8C9E0;
+	border-radius:4px;
+	margin:4px;
+	padding:4px;
+	font-family:helvetica, sans-serif;
+	color:#16496E;
+	font-size:13px;
+	cursor:pointer;
+	display:none;
+}
+
+.hide_data_bubble {
+	position:absolute;
+	background-color:#A8C9E0;
+  color:#16496E;
+  font-family:helvetica, sans-serif;
+  font-size:12px;
+  border-radius:4px;
+  padding:4px;
+  cursor:pointer;
+  border-top-right-radius:0px;
+  border-bottom-right-radius:0px;
+}
+
+.hide_suggestions_title {
+	font-style:italic;
+	color:#BBB;
+	font-size:10px;
+}
+
+.step_header {
+	font-weight:bold;
+	color:#16496E;
+	font-size:17px;	
+	margin-bottom:10px;
+}
+
+.step_description {
+	font-size:14px;
+	margin-bottom:15px;
+}
