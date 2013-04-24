@@ -345,7 +345,7 @@
     $('#canvas_container').mousedown(function(e) { 
    		console.log("DOWN");
        pen_down = true;
-		 	setTimeout(function(){trackMouse();}, 100);
+		 	setTimeout(function(){trackMouse();}, 1);
 			current_path = new DrawingPath();
 			current_path.start_point = new PointV2(e.pageX - $("#resumeHTML").position().left, e.pageY - $("#resumeHTML").position().top);
 		 	var annotation = new Annotation();
