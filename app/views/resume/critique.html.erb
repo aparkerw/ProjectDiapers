@@ -1,3 +1,5 @@
+<% first_name = "Adam" %>
+<% person_name = "Adam Parker" %>
 <script src="http://connect.facebook.net/en_US/all.js"></script>
 <script src="/javascript/raphael-min.js" type="text/javascript" charset="utf-8"></script>
 <style type="text/css">
@@ -7,6 +9,18 @@
 		position:absolute;
 		cursor:pointer;
 	}
+	.feedback_enabled {
+		color:green;
+		padding-top:10px;
+		padding-bottom:10px;
+		cursor:pointer;
+	}
+	.feedback_disabled {
+		padding-top:5px;
+		padding-bottom:5px;
+		cursor:pointer;
+	}
+	
 </style>
 <div id="fb-root"></div>
 
@@ -126,7 +140,19 @@
 
 		<div style="clear:both;"></div>
 
+		<div id="feedbackbar" style="position:fixed; right:0px; top:200px;background-color:#DDD;font-size:12px;color:#888;border:1px solid #888; border-right:0px;padding:10px; border-top-left-radius:10px;border-bottom-left-radius:10px; display:none;">
+			<div id="feedbacktype1" class="feedback_enabled" onclick="setFeedbackMode('1message');">leave message</div>
+			<div id="feedbacktype2" class="feedback_disabled" onclick="setFeedbackMode('2annotate');">draw</div>
+			<div id="feedbacktype3" class="feedback_disabled" onclick="setFeedbackMode('3skills');">suggest skills</div>
+			<div id="feedbacktype4" class="feedback_disabled" onclick="setFeedbackMode('4endorcement');">endorse <%=first_name%></div>
+		</div>
 		
+		<div id="annotationmessgebar" style="position:fixed; bottom:0px; left:500px;background-color:#DDD;font-size:12px;color:#888;border:1px solid #888; border-bottom:0px;padding:10px; border-top-left-radius:10px;border-top-right-radius:10px;display:none;">
+			leave a message for this annotation
+			<textarea>
+			</textarea>
+			<input type="button" value="save"/>
+		</div>
 	</div>
 </center>
 
@@ -264,44 +290,52 @@
 
 	function moveToStep1()
 	{
+		$("#step1Label").css({"color":"black","font-weight":"bold"});
+		$("#step2Label").css({"color":"silver","font-weight":"none"});
+		$("#step3Label").css({"color":"silver","font-weight":"none"});
+		
+		hideFeedbackBar();
+		
 		clearBlackoutDivs();
 		$("#step_2_action_panel").hide(400, function(){
 			$("#step_3_action_panel").hide(400, function(){			
 				$("#step_1_action_panel").show(400);
 			});
 		});
-		
-		$("#step1Label").css({"color":"black","font-weight":"bold"});
-		$("#step2Label").css({"color":"silver","font-weight":"none"});
-		$("#step3Label").css({"color":"silver","font-weight":"none"});
 	}
 	
 	function moveToStep2()
 	{
+		$("#step1Label").css({"color":"silver","font-weight":"none"});
+		$("#step2Label").css({"color":"black","font-weight":"bold"});
+		$("#step3Label").css({"color":"silver","font-weight":"none"});
+
+		hideFeedbackBar();
+
 		clearBlackoutDivs();
+
 		$("#step_1_action_panel").hide(400, function(){
 			$("#step_3_action_panel").hide(400, function(){			
 				$("#step_2_action_panel").show(400);
 			});
 		});
-		
-		$("#step1Label").css({"color":"silver","font-weight":"none"});
-		$("#step2Label").css({"color":"black","font-weight":"bold"});
-		$("#step3Label").css({"color":"silver","font-weight":"none"});
 	}
 	
 	function moveToStep3()
 	{
+		$("#step1Label").css({"color":"silver","font-weight":"none"});
+		$("#step2Label").css({"color":"silver","font-weight":"none"});
+		$("#step3Label").css({"color":"black","font-weight":"bold"});
+		
+		showFeedbackBar();
+		
 		clearBlackoutDivs();
+		
 		$("#step_2_action_panel").hide(400, function(){
 			$("#step_1_action_panel").hide(400, function(){			
 				$("#step_3_action_panel").show(400);
 			});
 		});
-		
-		$("#step1Label").css({"color":"silver","font-weight":"none"});
-		$("#step2Label").css({"color":"silver","font-weight":"none"});
-		$("#step3Label").css({"color":"black","font-weight":"bold"});
 		
 		// add annotations
 		$("#resumeHTML").css("position","relative").append($('<div id="canvas_container"></div>'));
@@ -383,6 +417,82 @@
   	window.open('https://mail.google.com/mail/?view=cm&fs=1&to=someone@example.com&su=Help Adam make their resume awesome&body=Adam%20wants your help making their resume awesome: <a href="' + 'http://resumecritique.herokuapp.com/resume/critique?for=SOMELONGUNIQUEIDENTIFIERHERE' + '">click here to review</a>');
   }
 </script>
+
+<script type="text/javascript">
+
+/**************************************************************/
+/*  All of the logic needed for the display of the feedback bar  */
+/**************************************************************/
+
+function setFeedbackMode(switchTo){
+	switch(switchTo){
+		case '1message':
+//			$(this).toggleClass('feedback_enabled');
+			$("#feedbacktype1").addClass('feedback_enabled');
+			
+			$("#feedbacktype2").addClass('feedback_disabled');
+			$("#feedbacktype2").removeClass('feedback_enabled');
+			$("#feedbacktype3").addClass('feedback_disabled');
+			$("#feedbacktype3").removeClass('feedback_enabled');
+			$("#feedbacktype4").addClass('feedback_disabled');
+			$("#feedbacktype4").removeClass('feedback_enabled');
+		break;
+		case '2annotate':
+//			$(this).toggleClass('feedback_enabled');
+			$("#feedbacktype2").addClass('feedback_enabled');
+			
+			$("#feedbacktype1").addClass('feedback_disabled');
+			$("#feedbacktype1").removeClass('feedback_enabled');
+			$("#feedbacktype3").addClass('feedback_disabled');
+			$("#feedbacktype3").removeClass('feedback_enabled');
+			$("#feedbacktype4").addClass('feedback_disabled');
+			$("#feedbacktype4").removeClass('feedback_enabled');
+		break;
+		case '3skills':
+//			$(this).toggleClass('feedback_enabled');
+			$("#feedbacktype3").addClass('feedback_enabled');
+			
+			$("#feedbacktype1").addClass('feedback_disabled');
+			$("#feedbacktype1").removeClass('feedback_enabled');
+			$("#feedbacktype2").addClass('feedback_disabled');
+			$("#feedbacktype2").removeClass('feedback_enabled');
+			$("#feedbacktype4").addClass('feedback_disabled');
+			$("#feedbacktype4").removeClass('feedback_enabled');
+		break;
+		case '4endorcement':
+//			$(this).toggleClass('feedback_enabled');
+			$("#feedbacktype4").addClass('feedback_enabled');
+			
+			$("#feedbacktype1").addClass('feedback_disabled');
+			$("#feedbacktype1").removeClass('feedback_enabled');
+			$("#feedbacktype2").addClass('feedback_disabled');
+			$("#feedbacktype2").removeClass('feedback_enabled');
+			$("#feedbacktype3").addClass('feedback_disabled');
+			$("#feedbacktype3").removeClass('feedback_enabled');
+		break;
+	}
+}
+
+function showFeedbackBar(){
+	$("#feedbackbar").show(200);
+	$("#annotationmessgebar").show(200);
+}
+function hideFeedbackBar(){
+	$("#feedbackbar").hide(100);
+	$("#annotationmessgebar").hide(100);
+}
+
+</script>
+
+
+<script type="text/javascript">
+
+/**************************************************************/
+/*  All of the logic needed for the leaving of notes  */
+/**************************************************************/
+
+</script>
+
 
 <script type="text/javascript">
 
