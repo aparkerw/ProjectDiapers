@@ -5,6 +5,7 @@
 		top:0px;
 		left:0px;
 		position:absolute;
+		cursor:pointer;
 	}
 </style>
 <div id="fb-root"></div>
@@ -15,13 +16,13 @@
 			Resume Feedback & Endorsements
 		</div>
 		<div style="padding:25px;">
-			<div id="step1Label" style="float:left;width:33%;text-align:center;font-weight:bold;">
+			<div id="step1Label" style="float:left;width:33%;text-align:center;font-weight:bold;cursor:pointer;" onclick="moveToStep1()">
 				<b>&middot;</b> Step 1 - Hide Private Data
 			</div>
-			<div id="step2Label" style="float:left;width:33%;text-align:center;">
+			<div id="step2Label" style="float:left;width:33%;text-align:center;cursor:pointer;" onclick="moveToStep2()">
 				&middot; Step 2 - Invite Reviewers
 			</div>
-			<div id="step3Label" style="float:left;width:33%;text-align:center;">
+			<div id="step3Label" style="float:left;width:33%;text-align:center;cursor:pointer;" onclick="moveToStep3()">
 				&middot; Step 3 - Review Feedback
 			</div>
 			<div style="clear:both;"></div>
@@ -30,7 +31,7 @@
 
 		<div style="float:left;width:340px;">
 					
-			<div id="step_1_hide_content" style="margin-left:10px;">
+			<div id="step_1_action_panel" style="margin-left:10px;">
 				<div class="step_header">Hide Personal Information</div>
 				<div class="step_description">Take a moment to hide any information you don't want your reviewers to see  by highlighting the content on your resume.</div>
 				<div style="margin-bottom:30px;">
@@ -42,7 +43,7 @@
 				</div>
 			</div>
 			
-			<div id="step_2_invite_people" style="display:none;margin-left:10px;">
+			<div id="step_2_action_panel" style="display:none;margin-left:10px;">
 				<div class="step_header">Invite Friends to Review</div>
 				<div class="step_description">Use facebook or email to share your resume with friends so they can give you a constructive review of your resume.</div>
 				
@@ -105,7 +106,7 @@
 				</div>
 			</div>
 			
-			<div id="step_3_review_comments" style="display:none;margin-left:10px;">
+			<div id="step_3_action_panel" style="display:none;margin-left:10px;">
 				<div class="step_header">Review Feedback</div>
 				<div class="step_description">Examine the feedback on your resume.</div>
 				changes
@@ -260,13 +261,29 @@
 		buttonDiv.click(function(){blackoutHighlightedText();$(this).remove();});
 		$("body").append(buttonDiv);
 	}
+
+	function moveToStep1()
+	{
+		clearBlackoutDivs();
+		$("#step_2_action_panel").hide(400, function(){
+			$("#step_3_action_panel").hide(400, function(){			
+				$("#step_1_action_panel").show(400);
+			});
+		});
+		
+		$("#step1Label").css({"color":"black","font-weight":"bold"});
+		$("#step2Label").css({"color":"silver","font-weight":"none"});
+		$("#step3Label").css({"color":"silver","font-weight":"none"});
+	}
 	
 	function moveToStep2()
 	{
 		clearBlackoutDivs();
-		$("#step_1_hide_content").hide(400, function(){
-			$("#step_2_invite_people").show(400);}
-		);
+		$("#step_1_action_panel").hide(400, function(){
+			$("#step_3_action_panel").hide(400, function(){			
+				$("#step_2_action_panel").show(400);
+			});
+		});
 		
 		$("#step1Label").css({"color":"silver","font-weight":"none"});
 		$("#step2Label").css({"color":"black","font-weight":"bold"});
@@ -276,9 +293,11 @@
 	function moveToStep3()
 	{
 		clearBlackoutDivs();
-		$("#step_2_invite_people").hide(400, function(){
-			$("#step_3_review_comments").show(400);}
-		);
+		$("#step_2_action_panel").hide(400, function(){
+			$("#step_1_action_panel").hide(400, function(){			
+				$("#step_3_action_panel").show(400);
+			});
+		});
 		
 		$("#step1Label").css({"color":"silver","font-weight":"none"});
 		$("#step2Label").css({"color":"silver","font-weight":"none"});
@@ -286,7 +305,26 @@
 		
 		// add annotations
 		$("#resumeHTML").css("position","relative").append($('<div id="canvas_container"></div>'));
-		drawLine();
+    $('#canvas_container').mousemove(function(e) {
+    	currentMousePos = new PointV2(e.pageX - $("#resumeHTML").position().left, e.pageY - $("#resumeHTML").position().top);
+    });
+    $('#canvas_container').mousedown(function(e) { 
+   		console.log("DOWN");
+       pen_down = true;
+		 	setTimeout(function(){trackMouse();}, 100);
+			current_path = new DrawingPath();
+			current_path.start_point = new PointV2(e.pageX - $("#resumeHTML").position().left, e.pageY - $("#resumeHTML").position().top);
+		 	var annotation = new Annotation();
+		 	annotation.drawings.push(current_path);
+		 	annotations.push(annotation);
+    });
+    $('#canvas_container').mouseup(function(event) { 
+   		console.log("UP");
+       pen_down = false;
+    });
+		setupCanvas();
+			current_path = new DrawingPath();
+		drawAnnotations();
 	}
 	
 	
@@ -315,7 +353,6 @@
   	  profile_div.append(pic_div).append(detail_info).append($("<div style='clear:both;'>"));
   	  
   		$("#FBProfilesIdeal").append(profile_div);
-  		console.log(this);
   	});
   }
 		
@@ -332,7 +369,6 @@
   	  profile_div.append(pic_div).append(detail_info).append($("<div style='clear:both;'>"));
   	  
   		$("#FBProfiles").append(profile_div);
-  		console.log(this);
   	});
   }
   
@@ -346,17 +382,113 @@
 //  	$("body").append(composer);
   	window.open('https://mail.google.com/mail/?view=cm&fs=1&to=someone@example.com&su=Help Adam make their resume awesome&body=Adam%20wants your help making their resume awesome: <a href="' + 'http://resumecritique.herokuapp.com/resume/critique?for=SOMELONGUNIQUEIDENTIFIERHERE' + '">click here to review</a>');
   }
-  
-  function drawLine(){
-  	var paper = new Raphael(document.getElementById('canvas_container'),500,500);
-  	var circle = paper.circle(100,100,80);
-  	for(var i = 0; i < 5; i+=1) {
-  		var multiplier = i*5;
-  		paper.circle(250 + (2*multiplier), 100 + multiplier, 50 - multiplier);
-  	}
-  	var rectangle = paper.rect(200,200, 250, 100);
-  	var lines = paper.path("M 250 250 1 0 -50 1 -50 0");
+</script>
+
+<script type="text/javascript">
+
+/**************************************************************/
+/*  All of the logic needed for the annotation and rendering  */
+/**************************************************************/
+
+
+  function setupCanvas(){
+  	paper = new Raphael(document.getElementById('canvas_container'),$('#resumeHTML').width(),$('#resumeHTML').height());
   }
+
+  function clearAnnotations(){
+  	paper.clear();
+  	$("#canvas_container").html('');
+  	setupCanvas();
+  }
+  
+  function drawAnnotations(){
+  	if(paper != null && current_path != null) {
+			for(var i = 0; i < annotations.length; i++){
+				var annotation = annotations[i];
+				for(var j=0; j < annotation.drawings.length; j++){
+					var a_path = annotation.drawings[j];
+		  		var lines = paper.path(a_path.to_path_string());
+			  	lines.attr({stroke: current_path.line_color, 'stroke-width': 5, 'stroke-opacity':0.5});
+			  }
+		  }
+	  }
+  }
+
+  function trackMouse(){
+  	if(pen_down)
+  	{	
+  		// add the current mouse point to the drawingPath
+//	  	current_path.append_point_to_path(currentMousePos);
+	  	annotations[annotations.length-1].add_point_to_last_drawing(currentMousePos);
+	  	
+  		// clear the canvas for redraw
+  		clearAnnotations();
+  		// redraw now that our path is updated
+  		drawAnnotations();
+  		
+  		// repeat the cycle
+  		setTimeout(function(){trackMouse();}, 30);
+  	}
+  }
+	
+function PointV2 (x,y) {
+    this.x = x;
+    this.y = y;
+}
+
+
+function DrawingPath()
+{
+	this.line_color = "#FF0000";
+	this.start_point = null;
+	this.last_point = null;
+	this.path_elements = new Array();
+	this.to_path_string = function(){
+		var path = "M " + this.start_point.x + " " + this.start_point.y;
+		for(var i = 0; i < this.path_elements.length; i++) {
+			var a_move = this.path_elements[i];
+			path += " l " + a_move.x + " " + a_move.y;
+		}
+		return path;
+//				return "M 250 250 l 0 -50 l -50 0 l 0 -50 l -50 0 l 0 -50 l -50 0";
+	},
+	this.append_point_to_path = function(a_point){
+		if(this.last_point == null)
+		{
+				this.last_point = a_point;
+				var delta_point = new PointV2(null, null);
+				delta_point.x = this.start_point.x - a_point.x;
+				delta_point.y = this.start_point.y - a_point.y;
+				this.path_elements.push(delta_point);
+		}else{
+			if(this.last_point.x != a_point.x || this.last_point.y != a_point.y)
+			{
+				var delta_point = new PointV2(null, null);
+				delta_point.x = a_point.x - this.last_point.x;
+				delta_point.y = a_point.y - this.last_point.y;
+				this.path_elements.push(delta_point);
+				this.last_point = a_point;
+			}
+		}
+	}
+}
+
+function Annotation() {
+	this.note = "";
+	this.drawings = new Array();
+	this.add_point_to_last_drawing = function(a_point){
+		this.drawings[this.drawings.length - 1].append_point_to_path(a_point);
+	}
+}
+
+  
+  // GLOBAL PROPERTIES AND INITIALIZATIONS
+  var paper = null;
+  var currentMousePos = new PointV2(null, null);
+  var canvasOffset = new PointV2(null, null);  
+  var pen_down = false;
+  var current_path = null;
+  var annotations = new Array();
   
 </script>
 
