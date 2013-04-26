@@ -11,14 +11,19 @@
 	}
 	.feedback_enabled {
 		color:green;
-		padding-top:10px;
-		padding-bottom:10px;
+		padding-top:5px;
+		padding-bottom:5px;
+		padding-left:20px;
+		padding-right:20px;
 		cursor:pointer;
+		float:left;
 	}
 	.feedback_disabled {
 		padding-top:5px;
 		padding-bottom:5px;
+		padding-left:5px;
 		cursor:pointer;
+		float:left;
 	}
 	.ReviewerFeedback {
 	}
@@ -68,6 +73,35 @@
 		clear:both;
 	}
 	
+	.NoteBubble{
+		background-color:rgb(116, 139, 211);
+		color:white;
+		border-radius:10px;
+		padding:13px;
+		font-size:12px;
+		position:absolute;
+	}
+	
+	.NoteCreateBubble{
+		background-color:silver;
+		border:1px solid gray;
+		border-radius:10px;
+		padding:3px;
+		font-size:12px;
+		position:absolute;
+	}
+	
+	.AnnotationNote {
+		bottom:15px;
+		position:fixed;
+		background-color:black;
+		color:white;
+		opacity:0.8;
+		padding:12px;
+		border-radius:12px;
+		width:400px;
+		text-align:center;
+	}
 	
 </style>
 <div id="fb-root"></div>
@@ -178,11 +212,11 @@
 							Laurie Gellatta
 							<div class="FeedbackCount">3</div>
 						</div>
-						<div class="Item Active" id="123" data-person_id="3" data-feedback_type="message" onclick="showFeedback(this);" data-payload='{"message":"Consider reworking this sentance. It sounds weird.  Maybe combine it with the bullets bellow."}'>[M] Consider reworking this sentance. It sounds weird.  Maybe combine it with the bullets bellow.</div>
+						<div class="Item Active" id="123" data-person_id="3" data-feedback_type="note" onclick="showFeedback(this);" data-payload='{"note":"Consider reworking this sentance. It sounds weird.  Maybe combine it with the bullets bellow.","position":{"x":100,"y":150}}'>[N] Consider reworking this sentance. It sounds weird.  Maybe combine it with the bullets bellow.</div>
 						<div class="clear"></div>
-						<div class="Item" id="124" data-person_id="3" data-feedback_type="message" onclick="showFeedback(this);" data-payload='{"message":"Not sure about this format."}'>[M] Not sure about this format.</div>
+						<div class="Item" id="124" data-person_id="3" data-feedback_type="note" onclick="showFeedback(this);" data-payload='{"note":"Not sure about this format.","position":{"x":300,"y":100}}'>[N] Not sure about this format.</div>
 						<div class="clear"></div>
-						<div class="Item" id="125" data-person_id="3" data-feedback_type="annotation" onclick="showFeedback(this);" data-payload='{"message":"Strong point.  Maybe move higher in the list.","paths":[{"line_color":"#FF0000","start_point":{"x":10.0,"y":10.0},"path_elements":[{"x":10.0,"y":10.0},{"x":10.0,"y":10.0},{"x":10.0,"y":10.0}]},{"line_color":"#00FF00","start_point":{"x":25.0,"y":30.0},
+						<div class="Item" id="125" data-person_id="3" data-feedback_type="annotation" onclick="showFeedback(this);" data-payload='{"note":"Strong point.  Maybe move higher in the list.","paths":[{"line_color":"#FF0000","start_point":{"x":10.0,"y":10.0},"path_elements":[{"x":10.0,"y":10.0},{"x":10.0,"y":10.0},{"x":10.0,"y":10.0}]},{"line_color":"#00FF00","start_point":{"x":25.0,"y":30.0},
 						"path_elements":[
 						{"x":10.0,"y":10.0},{"x":1.0,"y":15.0},{"x":15.0,"y":15.0}]},
 						{"line_color":"#0000FF","start_point":{"x":125.0,"y":230.0},"path_elements":[{"x":-10.0,"y":-10.0},{"x":-1.0,"y":-15.0},{"x":-150.0,"y":15.0}]},
@@ -195,7 +229,7 @@
 							Jim Kelly
 							<div class="FeedbackCount">1</div>
 						</div>
-						<div class="Item" id="234" data-person_id="3"></div>
+						<div class="Item" id="234" data-person_id="3" data-feedback_type="annotation" onclick="showFeedback(this);" data-payload='{"note":"You should move this section up here.","paths":[{"line_color":"#FF0000","start_point":{"x":38.0909423828125,"y":499.4545440673828},"path_elements":[{"x":0,"y":0},{"x":5,"y":-1},{"x":13,"y":0},{"x":12,"y":0},{"x":13,"y":0},{"x":12,"y":0},{"x":14,"y":0},{"x":14,"y":0},{"x":24,"y":0},{"x":17,"y":0},{"x":12,"y":0},{"x":14,"y":2},{"x":20,"y":2},{"x":14,"y":3},{"x":8,"y":1},{"x":17,"y":4},{"x":21,"y":6},{"x":18,"y":7},{"x":25,"y":12},{"x":9,"y":6},{"x":8,"y":4},{"x":8,"y":9},{"x":1,"y":4},{"x":2,"y":9},{"x":0,"y":8},{"x":0,"y":7},{"x":0,"y":7},{"x":0,"y":6},{"x":-2,"y":6},{"x":-4,"y":3},{"x":-4,"y":3},{"x":-3,"y":3},{"x":-5,"y":2},{"x":-7,"y":4},{"x":-12,"y":3},{"x":-21,"y":0},{"x":-20,"y":0},{"x":-32,"y":0},{"x":-13,"y":0},{"x":-22,"y":0},{"x":-28,"y":-2},{"x":-11,"y":-2},{"x":-10,"y":-2},{"x":-9,"y":-1},{"x":-9,"y":-1},{"x":-8,"y":-1},{"x":-10,"y":-1},{"x":-9,"y":0},{"x":-9,"y":0},{"x":-8,"y":0},{"x":-9,"y":0},{"x":-6,"y":0},{"x":-6,"y":0},{"x":-6,"y":0},{"x":-6,"y":-3},{"x":-4,"y":-4},{"x":-3,"y":-6},{"x":-4,"y":-8},{"x":-1,"y":-10},{"x":-2,"y":-10},{"x":-1,"y":-8},{"x":-1,"y":-8},{"x":0,"y":-4},{"x":-1,"y":-5},{"x":0,"y":-3},{"x":0,"y":-4},{"x":0,"y":-6},{"x":1,"y":-4},{"x":2,"y":-5},{"x":1,"y":-4},{"x":2,"y":-4},{"x":0,"y":-4},{"x":1,"y":-3},{"x":3,"y":-5},{"x":2,"y":-4},{"x":1,"y":-3},{"x":1,"y":0}]},{"line_color":"#FF0000","start_point":{"x":58.0909423828125,"y":502.4545440673828},"path_elements":[{"x":0,"y":0},{"x":-1,"y":-2},{"x":-3,"y":-6},{"x":-4,"y":-5},{"x":-4,"y":-7},{"x":-1,"y":-5},{"x":-2,"y":-4},{"x":-2,"y":-6},{"x":-1,"y":-2},{"x":0,"y":-6},{"x":0,"y":-11},{"x":0,"y":-5},{"x":0,"y":-2},{"x":1,"y":-3},{"x":3,"y":-3},{"x":2,"y":-3},{"x":3,"y":-3},{"x":2,"y":-3},{"x":4,"y":-2},{"x":4,"y":-2},{"x":4,"y":-1},{"x":3,"y":-2},{"x":3,"y":-1},{"x":5,"y":-2},{"x":3,"y":-1},{"x":2,"y":-2},{"x":3,"y":-1},{"x":3,"y":0},{"x":2,"y":-1},{"x":1,"y":0},{"x":0,"y":-2},{"x":1,"y":-1},{"x":3,"y":-1},{"x":1,"y":0},{"x":3,"y":-3},{"x":3,"y":-3},{"x":3,"y":-3},{"x":6,"y":-3},{"x":3,"y":-3},{"x":3,"y":-1},{"x":5,"y":-3},{"x":5,"y":-2},{"x":7,"y":-4},{"x":7,"y":-1},{"x":5,"y":-2},{"x":6,"y":-2},{"x":5,"y":-2},{"x":7,"y":-2},{"x":9,"y":-2},{"x":15,"y":-3},{"x":11,"y":-3},{"x":12,"y":-4},{"x":9,"y":-1},{"x":9,"y":-2},{"x":14,"y":-3},{"x":9,"y":-2},{"x":9,"y":-1},{"x":5,"y":0},{"x":6,"y":0},{"x":1,"y":-1},{"x":2,"y":0},{"x":1,"y":0},{"x":2,"y":0},{"x":1,"y":0}]},{"line_color":"#FF0000","start_point":{"x":259.0909423828125,"y":338.4545440673828},"path_elements":[{"x":0,"y":0},{"x":2,"y":2},{"x":4,"y":4},{"x":3,"y":4},{"x":4,"y":3},{"x":3,"y":3},{"x":1,"y":1},{"x":1,"y":1},{"x":1,"y":0},{"x":1,"y":1},{"x":0,"y":1},{"x":3,"y":2},{"x":0,"y":1},{"x":-3,"y":1},{"x":-7,"y":4},{"x":-8,"y":5},{"x":-5,"y":2},{"x":-3,"y":2},{"x":-2,"y":3},{"x":-2,"y":2},{"x":-1,"y":2}]}]}'>[A] You should move this section up here.</div>
 						<div class="clear"></div>
 					</div>
 					<div class="Person" id="3">
@@ -226,17 +260,20 @@
 
 		<div style="clear:both;"></div>
 
-		<div id="feedbackbar" style="position:fixed; right:0px; top:200px;background-color:#DDD;font-size:12px;color:#888;border:1px solid #888; border-right:0px;padding:10px; border-top-left-radius:10px;border-bottom-left-radius:10px; display:none;">
-			<div id="feedbacktype1" class="feedback_enabled" onclick="setFeedbackMode('1message');">leave message</div>
+		<div id="feedbackbar" style="position:fixed; left500px:0px; bottom:0px;background-color:#DDD;font-size:12px;color:#888;border:1px solid #888; border-bottom:0px;padding:10px; border-top-right-radius:10px;border-top-left-radius:10px; display:none;">
+			<div id="feedbacktype1" class="feedback_enabled" onclick="setFeedbackMode('1note');">leave note</div>
 			<div id="feedbacktype2" class="feedback_disabled" onclick="setFeedbackMode('2annotate');">draw</div>
 			<div id="feedbacktype3" class="feedback_disabled" onclick="setFeedbackMode('3skills');">suggest skills</div>
 			<div id="feedbacktype4" class="feedback_disabled" onclick="setFeedbackMode('4endorcement');">endorse <%=first_name%></div>
+			<div class="clear"></div>
 		</div>
 		
-		<div id="annotationmessgebar" style="position:fixed; bottom:0px; left:500px;background-color:#DDD;font-size:12px;color:#888;border:1px solid #888; border-bottom:0px;padding:10px; border-top-left-radius:10px;border-top-right-radius:10px;display:none;">
-			leave a message for this annotation
+		<div id="annotationmessgebar" style="position:fixed; right:0px; top:200px;background-color:#DDD;font-size:12px;color:#888;border:1px solid #888; border-right:0px;padding:10px; border-top-left-radius:10px;border-bottom-left-radius:10px;display:none;">
+			leave a note for this annotation
+			<br>
 			<textarea>
 			</textarea>
+			<br>
 			<input type="button" value="save"/>
 		</div>
 	</div>
@@ -376,6 +413,10 @@
 
 	function moveToStep1()
 	{
+		clearNoteBubbles();
+		clearNoteCreateBubbles();
+		$("#canvas_container").remove();
+		$("#resumeHTML").css("position","static");
 		$("#step1Label").css({"color":"black","font-weight":"bold"});
 		$("#step2Label").css({"color":"silver","font-weight":"none"});
 		$("#step3Label").css({"color":"silver","font-weight":"none"});
@@ -392,6 +433,10 @@
 	
 	function moveToStep2()
 	{
+		clearNoteBubbles();
+		clearNoteCreateBubbles();
+		$("#canvas_container").remove();
+		$("#resumeHTML").css("position","static");
 		$("#step1Label").css({"color":"silver","font-weight":"none"});
 		$("#step2Label").css({"color":"black","font-weight":"bold"});
 		$("#step3Label").css({"color":"silver","font-weight":"none"});
@@ -430,13 +475,25 @@
     });
     $('#canvas_container').mousedown(function(e) { 
    		console.log("DOWN");
-       pen_down = true;
-		 	setTimeout(function(){trackMouse();}, 1);
-			current_path = new DrawingPath();
-			current_path.start_point = new PointV2(e.pageX - $("#resumeHTML").position().left, e.pageY - $("#resumeHTML").position().top);
-		 	var annotation = new Annotation();
-		 	annotation.drawings.push(current_path);
-		 	annotations.push(annotation);
+   		switch(edit_mode){
+   			case "note":
+		    	var note_point = new PointV2(e.pageX - $("#resumeHTML").position().left, e.pageY - $("#resumeHTML").position().top);
+					addNoteCreateBubble(note_point);
+   			break;
+   			case "annotation":
+   				var curr_annotation = new Annotation();
+   				if(annotations.length > 0){
+   					curr_annotation = annotations[0];
+   				}
+		      pen_down = true;
+				 	setTimeout(function(){trackMouse();}, 1);
+					current_path = new DrawingPath();
+					current_path.start_point = new PointV2(e.pageX - $("#resumeHTML").position().left, e.pageY - $("#resumeHTML").position().top);
+				 	curr_annotation.drawings.push(current_path);
+				 	annotations = new Array();
+				 	annotations.push(curr_annotation);
+   			break;
+   		}
     });
     $('#canvas_container').mouseup(function(event) { 
    		console.log("UP");
@@ -451,7 +508,6 @@
 	// LETS FIND THE SENSITIVE INFORMATIOn
 	findSensitiveData();
 
-//	$("#htmlresume").click(function(){clearHighlightedText();});
 	$("#htmlresume").mouseup(function(e){
 		getHighlightedText();
 			if(highlightedText != null && highlightedText != ""){
@@ -511,9 +567,13 @@
 /**************************************************************/
 
 function setFeedbackMode(switchTo){
+	clearNoteBubbles();
+	clearNoteCreateBubbles();
+	clearAnnotations();
 	switch(switchTo){
-		case '1message':
-//			$(this).toggleClass('feedback_enabled');
+		case '1note':
+			clearAnnotations();
+			edit_mode = "note";
 			$("#feedbacktype1").addClass('feedback_enabled');
 			
 			$("#feedbacktype2").addClass('feedback_disabled');
@@ -524,7 +584,7 @@ function setFeedbackMode(switchTo){
 			$("#feedbacktype4").removeClass('feedback_enabled');
 		break;
 		case '2annotate':
-//			$(this).toggleClass('feedback_enabled');
+			edit_mode = "annotation";
 			$("#feedbacktype2").addClass('feedback_enabled');
 			
 			$("#feedbacktype1").addClass('feedback_disabled');
@@ -535,7 +595,8 @@ function setFeedbackMode(switchTo){
 			$("#feedbacktype4").removeClass('feedback_enabled');
 		break;
 		case '3skills':
-//			$(this).toggleClass('feedback_enabled');
+			clearAnnotations();
+			edit_mode = "skills";
 			$("#feedbacktype3").addClass('feedback_enabled');
 			
 			$("#feedbacktype1").addClass('feedback_disabled');
@@ -546,7 +607,8 @@ function setFeedbackMode(switchTo){
 			$("#feedbacktype4").removeClass('feedback_enabled');
 		break;
 		case '4endorcement':
-//			$(this).toggleClass('feedback_enabled');
+			clearAnnotations();
+			edit_mode = "endorcement";
 			$("#feedbacktype4").addClass('feedback_enabled');
 			
 			$("#feedbacktype1").addClass('feedback_disabled');
@@ -577,8 +639,37 @@ function hideFeedbackBar(){
 /*  All of the logic needed for the leaving of notes  */
 /**************************************************************/
 
-</script>
+function addNoteCreateBubble(point){
+	var bubble_div = $("<div id='create_note'>");
+	bubble_div.addClass("NoteCreateBubble");
+	bubble_div.css({"top":point.y,"left":point.x})
+	bubble_div.html('Leave a note:<br><textarea></textarea><input type="button" value="done">');
+	$("#resumeHTML").append(bubble_div);
+}
 
+function clearNoteBubbles(){
+	for(var i=0; i < note_bubbles.length; i++){
+		note_bubbles[i].remove();
+	}
+}
+
+function addNoteBubble(note, point){
+	clearNoteBubbles();
+	var bubble_div = $("<div>");
+	bubble_div.addClass("NoteBubble");
+	bubble_div.css({"top":point.y + 25,"left":point.x})
+	bubble_div.html(note);
+	$("#resumeHTML").append(bubble_div);
+	note_bubbles.push(bubble_div);
+}
+
+  function clearNoteCreateBubbles(){
+  	$("[id=create_note]").each(function(){
+			this.remove();
+  	});
+  }
+
+</script>
 
 <script type="text/javascript">
 
@@ -592,6 +683,7 @@ function hideFeedbackBar(){
   }
 
   function clearAnnotations(){
+		clearAnnotationNotes();
   	paper.clear();
   	$("#canvas_container").html('');
   	setupCanvas();
@@ -608,6 +700,21 @@ function hideFeedbackBar(){
 			  }
 		  }
 	  }
+  }
+  
+  function showAnnotationNote(note){
+  	var note_div = $("<div id='annotation_note'>");
+  	note_div.addClass("AnnotationNote");
+  	note_div.css("left",$("#resumeHTML").position().left + ($("#resumeHTML").width()/2) - 200);
+  	console.log($("#resumeHTML").position());
+  	note_div.html(note);
+  	$("body").append(note_div);
+  }
+  
+  function clearAnnotationNotes(){
+  	$("[id=annotation_note]").each(function(){
+			this.remove();
+  	});
   }
 
   function trackMouse(){
@@ -646,7 +753,19 @@ function DrawingPath()
 			path += " l " + a_move.x + " " + a_move.y;
 		}
 		return path;
-//				return "M 250 250 l 0 -50 l -50 0 l 0 -50 l -50 0 l 0 -50 l -50 0";
+	},
+	this.to_json_string = function(){
+		var path_elements_str = "[";
+		for(var i=0; i < this.path_elements.length; i++){
+			if(path_elements_str == "["){
+				path_elements_str += '{"x":'+this.path_elements[i].x+',"y":'+this.path_elements[i].y+'}';
+			}else{
+				path_elements_str += ',{"x":'+this.path_elements[i].x+',"y":'+this.path_elements[i].y+'}';
+			}	
+		}
+		path_elements_str += "]";
+		var ret_str = '{"line_color":"'+this.line_color+'","start_point":{"x":'+this.start_point.x+',"y":'+this.start_point.y+'},"path_elements":'+path_elements_str+'}';
+		return ret_str;
 	},
 	this.append_point_to_path = function(a_point){
 		if(this.last_point == null)
@@ -678,19 +797,33 @@ function DrawingPath()
 }
 
 function Annotation() {
-	this.message = "";
+	this.note = "";
 	this.drawings = new Array();
 	this.add_point_to_last_drawing = function(a_point){
 		this.drawings[this.drawings.length - 1].append_point_to_path(a_point);
 	}
 	this.initWithJSON = function(json){
-		this.message = json.message;
+		this.note = json.note;
 		for(var i = 0; i < json.paths.length; i++){
 			var a_path = new DrawingPath();
 			a_path.initWithJSON(json.paths[i]);
 			this.drawings.push(a_path);
 		}
 		console.log(this);
+	}
+	this.to_json_string = function(){
+		var drawing_strings = "[";
+		for(var i=0; i < this.drawings.length; i++){
+			if(drawing_strings == "["){
+				drawing_strings += this.drawings[i].to_json_string();
+			}else{
+				drawing_strings += ","+this.drawings[i].to_json_string();
+			}	
+		}
+		drawing_strings += "]";
+		var ret_str = '{"note":"'+this.note+'","paths":'+drawing_strings+'}';
+		console.log(ret_str);
+		return ret_str;
 	}
 }
 
@@ -702,6 +835,8 @@ function Annotation() {
   var pen_down = false;
   var current_path = null;
   var annotations = new Array();
+  var edit_mode = "note";
+  var note_bubbles = new Array();
   
 </script>
 
@@ -740,16 +875,22 @@ function Annotation() {
 
 function showFeedback(sender) {
 	switch($(sender).data('feedback_type')){
-		case "message":
-			alert('msg');
+		case "note":
+			clearAnnotations();
+			var json = $(sender).data('payload');
+			var location_point = new PointV2(json.position.x, json.position.y);
+			addNoteBubble(json.note, location_point);
 		break;
 		case "annotation":
+			clearNoteBubbles();
+			clearNoteCreateBubbles();
+			clearAnnotations();
 			var an_annotation = new Annotation();
 			an_annotation.initWithJSON($(sender).data('payload'));
 			annotations = new Array();
 			annotations.push(an_annotation);
 			drawAnnotations();
-			alert(an_annotation.message);
+			showAnnotationNote(an_annotation.note);
 		break;		
 	}
 }
