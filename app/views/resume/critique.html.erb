@@ -20,6 +20,54 @@
 		padding-bottom:5px;
 		cursor:pointer;
 	}
+	.ReviewerFeedback {
+	}
+	
+	.ReviewerFeedback .Person {
+	}
+	
+	.ReviewerFeedback .Person .Name {
+		background-color: #FAFAFA;
+		border:1px solid #CCC;
+		padding:13px;
+		color:#232323;
+		font-size:15px;
+		position:relative;
+		height:36;
+	}
+	
+	.ReviewerFeedback .Person .Name .FeedbackCount{
+		position:absolute;
+		right:15px;
+		top:15px;
+		background-color:rgb(116, 139, 211);
+		color:white;
+		font-size:13px;
+		min-width:20px;
+		border-radius:4px;
+		text-align:center;
+	}
+
+	.ReviewerFeedback .Person .Item {
+		background-color: #EEF0F7;
+		padding:13px;
+		color:#232323;
+		margin-bottom:1px;
+		width:85%;
+		font-size:11px;
+		min-height:34px;
+		float:right;
+		cursor:pointer;
+	}
+	
+	.ReviewerFeedback .Person .Item .Active {
+		background-color: #E1E7F7;
+	}
+	
+	.clear {
+		clear:both;
+	}
+	
 	
 </style>
 <div id="fb-root"></div>
@@ -46,7 +94,7 @@
 		<div style="float:left;width:340px;">
 					
 			<div id="step_1_action_panel" style="margin-left:10px;">
-				<div class="step_header">Hide Personal Information</div>
+				<div class="step_header">1. Hide Personal Information</div>
 				<div class="step_description">Take a moment to hide any information you don't want your reviewers to see  by highlighting the content on your resume.</div>
 				<div style="margin-bottom:30px;">
 					<div id="warningsLabel" class="hide_suggestions_title">Suggested Items to Hide</div>
@@ -58,7 +106,7 @@
 			</div>
 			
 			<div id="step_2_action_panel" style="display:none;margin-left:10px;">
-				<div class="step_header">Invite Friends to Review</div>
+				<div class="step_header">2. Invite Friends to Review</div>
 				<div class="step_description">Use facebook or email to share your resume with friends so they can give you a constructive review of your resume.</div>
 				
 				<div>
@@ -121,9 +169,47 @@
 			</div>
 			
 			<div id="step_3_action_panel" style="display:none;margin-left:10px;">
-				<div class="step_header">Review Feedback</div>
-				<div class="step_description">Examine the feedback on your resume.</div>
-				changes
+				<div class="step_header">3. Review Your Feedback</div>
+				<div class="step_description">Below you will find the comments and keyword suggestions left by your collaborators.  Just simply scroll over any reviewer to view all of their suggestions.</div>
+				
+				<div class="ReviewerFeedback">
+					<div class="Person" id="1">
+						<div class="Name">
+							Laurie Gellatta
+							<div class="FeedbackCount">3</div>
+						</div>
+						<div class="Item Active" id="123" data-person_id="3" data-feedback_type="message" onclick="showFeedback(this);" data-payload='{"message":"Consider reworking this sentance. It sounds weird.  Maybe combine it with the bullets bellow."}'>[M] Consider reworking this sentance. It sounds weird.  Maybe combine it with the bullets bellow.</div>
+						<div class="clear"></div>
+						<div class="Item" id="124" data-person_id="3" data-feedback_type="message" onclick="showFeedback(this);" data-payload='{"message":"Not sure about this format."}'>[M] Not sure about this format.</div>
+						<div class="clear"></div>
+						<div class="Item" id="125" data-person_id="3" data-feedback_type="annotation" onclick="showFeedback(this);" data-payload='{"message":"Strong point.  Maybe move higher in the list.","paths":[{"line_color":"#FF0000","start_point":{"x":10.0,"y":10.0},"path_elements":[{"x":10.0,"y":10.0},{"x":10.0,"y":10.0},{"x":10.0,"y":10.0}]},{"line_color":"#00FF00","start_point":{"x":25.0,"y":30.0},
+						"path_elements":[
+						{"x":10.0,"y":10.0},{"x":1.0,"y":15.0},{"x":15.0,"y":15.0}]},
+						{"line_color":"#0000FF","start_point":{"x":125.0,"y":230.0},"path_elements":[{"x":-10.0,"y":-10.0},{"x":-1.0,"y":-15.0},{"x":-150.0,"y":15.0}]},
+						{"line_color":"#FF00FF","start_point":{"x":90,"y":120},"path_elements":[{"x":-1,"y":1},{"x":0,"y":7},{"x":-6,"y":13},{"x":-3,"y":15},{"x":-3,"y":10},{"x":-4,"y":27},{"x":0,"y":21},{"x":0,"y":10},{"x":4,"y":25},{"x":9,"y":13},{"x":12,"y":8},{"x":13,"y":4},{"x":18,"y":0},{"x":12,"y":-9},{"x":9,"y":-14},{"x":7,"y":-50},{"x":-2,"y":-14},{"x":-8,"y":-9},{"x":-13,"y":-7},{"x":-11,"y":-6},{"x":-17,"y":-8},{"x":-8,"y":-1},{"x":-14,"y":0},{"x":-8,"y":-2}]}
+						]}'>[A] Strong point.  Maybe move higher in the list.</div>
+						<div class="clear"></div>
+					</div>
+					<div class="Person" id="2">
+						<div class="Name">
+							Jim Kelly
+							<div class="FeedbackCount">1</div>
+						</div>
+						<div class="Item" id="234" data-person_id="3"></div>
+						<div class="clear"></div>
+					</div>
+					<div class="Person" id="3">
+						<div class="Name">
+							Brendan Sweeney
+							<div class="FeedbackCount">1</div>
+						</div>
+						<div class="Item" id="345" data-person_id="3"></div>
+						<div class="clear"></div>
+						<div class="Item" id="346" data-person_id="3"></div>
+						<div class="clear"></div>
+					</div>
+				</div>
+				
 			</div>
 			
 		</div>
@@ -518,7 +604,7 @@ function hideFeedbackBar(){
 				for(var j=0; j < annotation.drawings.length; j++){
 					var a_path = annotation.drawings[j];
 		  		var lines = paper.path(a_path.to_path_string());
-			  	lines.attr({stroke: current_path.line_color, 'stroke-width': 5, 'stroke-opacity':0.5});
+			  	lines.attr({stroke: a_path.line_color, 'stroke-width': 5, 'stroke-opacity':0.5});
 			  }
 		  }
 	  }
@@ -581,13 +667,30 @@ function DrawingPath()
 			}
 		}
 	}
+	this.initWithJSON = function(json){
+		this.line_color = json.line_color;
+		this.start_point = json.start_point;
+		for(var i = 0; i < json.path_elements.length; i ++){
+			var delta_point = new PointV2(json.path_elements[i].x,json.path_elements[i].y);
+			this.path_elements.push(delta_point);
+		}
+	}
 }
 
 function Annotation() {
-	this.note = "";
+	this.message = "";
 	this.drawings = new Array();
 	this.add_point_to_last_drawing = function(a_point){
 		this.drawings[this.drawings.length - 1].append_point_to_path(a_point);
+	}
+	this.initWithJSON = function(json){
+		this.message = json.message;
+		for(var i = 0; i < json.paths.length; i++){
+			var a_path = new DrawingPath();
+			a_path.initWithJSON(json.paths[i]);
+			this.drawings.push(a_path);
+		}
+		console.log(this);
 	}
 }
 
@@ -626,3 +729,29 @@ function Annotation() {
           });
   	}
 	 </script>
+	 
+	 
+
+<script type="text/javascript">
+
+/**************************************************************/
+/*  All of the logic needed for the showing feedback  */
+/**************************************************************/
+
+function showFeedback(sender) {
+	switch($(sender).data('feedback_type')){
+		case "message":
+			alert('msg');
+		break;
+		case "annotation":
+			var an_annotation = new Annotation();
+			an_annotation.initWithJSON($(sender).data('payload'));
+			annotations = new Array();
+			annotations.push(an_annotation);
+			drawAnnotations();
+			alert(an_annotation.message);
+		break;		
+	}
+}
+
+</script>
