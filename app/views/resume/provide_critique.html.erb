@@ -73,6 +73,7 @@
 		font-size:15px;
 		position:relative;
 		height:36;
+		font-weight:bold;
 	}
 	
 	.ReviewerFeedback .Person .Name .FeedbackCount{
@@ -145,7 +146,7 @@
 <center>
 	<div id="main_body_column">
 		<div id="header_bar">
-			<img src="/images/TitleBarIcon.png" align="middle" style="margin-top: -14px;"> Resume Feedback & Endorsements
+			<img src="/images/headerlogo.png" style="margin-top:4px;">
 		</div>
 		<div style="padding:15px;">
 			&nbsp;
@@ -160,7 +161,7 @@
 			<div style="margin-left:10px;">
 				<div class="step_header">Tell us your name</div>
 				<div class="step_description">Please tell us your name so we can tell <%=@resume_doc.owner_name.split(' ').first%> who the feedback is from.</div>
-				<input type="text" name="poster_name" placeholder="your name">
+				<input type="text" id="poster_name" name="poster_name" placeholder="your name">
 
 
 				<div class="step_header" style="margin-top:20px">Your Feedback</div>
@@ -170,7 +171,7 @@
 					<div class="Person" id="1">
 						<% feedback[1].each do |f| %>
 						<div class="Item Active" id="<%=f.id%>" data-person_id="<%=f.bid%>" data-feedback_type="<%=f.feedback_type%>" onclick="showFeedback(this);" data-payload='<%=f.json_data%>'>
-							<div style="float:left;"><img src="/images/<%=(f.feedback_type == 'note')? "note" : "draw"%>BubbleWhite.png"></div>
+							<div style="float:left;"><img src="/images/<%=(f.feedback_type == 'note')? "Note" : "Draw"%>Icon.png"></div>
 							<div style="float:left;padding-left:10px;width:80%;"><%=f.note%></div>
 							<div style="clear:both;"></div>
 						</div>
@@ -212,13 +213,13 @@
 
 		<div style="clear:both;"></div>
 		
-		<div id="annotationmessgebar" style="position:fixed; right:0px; top:200px;background-color:#DDD;font-size:12px;color:#888;border:1px solid #888; border-right:0px;padding:10px; border-top-left-radius:10px;border-bottom-left-radius:10px;">
+		<div id="annotationmessgebar" style="display:none;position:fixed; right:0px; top:200px;background-color:#e0e8f7;font-size:12px;color:#888;border:3px solid #c0cade; border-right:0px;padding:10px; border-top-left-radius:10px;border-bottom-left-radius:10px;">
 			leave a note for this annotation
 			<br>
-			<textarea>
+			<textarea cols="35" rows="4" style="border:0px;">
 			</textarea>
 			<br>
-			<input type="button" value="save"/>
+			<input type="button" style="background-color:#dd671d;color:white;border:0px;border-radius:5px;"value="save"/>
 		</div>
 	</div>
 </center>
@@ -273,6 +274,7 @@ function setFeedbackMode(switchTo){
 			$("#feedbacktype2").attr('class','feedback_disabled feedback_tab');
 			$("#feedbacktype3").attr('class','feedback_disabled feedback_tab');
 			$("#feedbacktype4").attr('class','feedback_disabled feedback_tab_right');
+			$("#annotationmessgebar").hide(100);
 		break;
 		case '2annotate':
 			edit_mode = "annotation";
@@ -290,7 +292,7 @@ function setFeedbackMode(switchTo){
 		case '3skills':
 			clearAnnotations();
 			edit_mode = "skills";
-
+			$("#annotationmessgebar").hide(100);
 			$("#feedbacktype1").attr('class','feedback_disabled feedback_tab_left');
 			$("#feedbacktype2").attr('class','feedback_disabled feedback_tab');
 			$("#feedbacktype3").attr('class','feedback_enabled feedback_tab');
@@ -300,7 +302,7 @@ function setFeedbackMode(switchTo){
 		case '4endorcement':
 			clearAnnotations();
 			edit_mode = "endorcement";
-			
+			$("#annotationmessgebar").hide(100);
 			$("#feedbacktype1").attr('class','feedback_disabled feedback_tab_left');
 			$("#feedbacktype2").attr('class','feedback_disabled feedback_tab');
 			$("#feedbacktype3").attr('class','feedback_disabled feedback_tab');
@@ -341,6 +343,9 @@ function setFeedbackMode(switchTo){
     $('#canvas_container').mouseup(function(event) { 
    		console.log("UP");
        pen_down = false;
+       if(edit_mode == "annotation"){
+				$("#annotationmessgebar").show(100);
+			 }
     });
 		setupCanvas();
 			current_path = new DrawingPath();
@@ -362,9 +367,10 @@ function addNoteCreateBubble(point){
 	clearAnnotations();
 	var bubble_div = $("<div id='create_note'>");
 	bubble_div.addClass("NoteCreateBubble");
-	bubble_div.css({"top":point.y,"left":point.x})
-	bubble_div.html('Leave a note:<br><textarea id="note_text"></textarea><input type="button" value="done" data-point=\'{"x":'+point.x+',"y":'+point.y+'}\' onclick="ajaxSaveNote(this);">');
+	bubble_div.css({"top":point.y,"left":point.x,"background-color":"#e0e8f7","border":"3px solid #c0cade"})
+	bubble_div.html('Leave a note:<br><textarea cols="35" rows="4" id="note_text" style="border:0px;"></textarea><br><input type="button" style="background-color:#dd671d;color:white;border:0px;border-radius:5px;" value="done" data-point=\'{"x":'+point.x+',"y":'+point.y+'}\' onclick="ajaxSaveNote(this);">');
 	$("#resumeHTML").append(bubble_div);
+	setTimeout(function(){$("#note_text").focus();},50);
 }
 
 function clearNoteBubbles(){
@@ -378,7 +384,7 @@ function addNoteBubble(note, point){
 	var bubble_div = $("<div></div>");
 	bubble_div.addClass("NoteBubble");
 	bubble_div.css({"top":point.y + 25,"left":point.x})
-	bubble_div.html("<img src='/images/NoteBubbleWhite.png' style='position: absolute;left: -19px;top: -15px;'>" + note);
+	bubble_div.html("<img src='/images/NoteIcon.png' style='position: absolute;left: -19px;top: -15px;'>" + note);
 	$("#resumeHTML").append(bubble_div);
 	note_bubbles.push(bubble_div);
 }
@@ -392,11 +398,15 @@ function addNoteBubble(note, point){
   function ajaxSaveNote(sender){
   	
   	var note = $(sender).parents("#create_note").children("#note_text").val();
+  	var name = $('#poster_name').val();
+  	if(name == null || name == ""){
+  		name = "anoymous";
+  	}
   	if(note == null || note == ""){
   		alert('please enter a note before saving');
   	}else{
 		  var json_payload = '{"note": "'+note+'","position":{"x":' + $(sender).data('point').x + ',"y":'+$(sender).data('point').y+'}}';
-			$.post("/resume/ajax_add_note",{private_guid: '<%=@resume_doc.private_guid%>', json_data: json_payload, note: note, bid: '<%=@bid%>', poster_name: 'john doe'});
+			$.post("/resume/ajax_add_note",{private_guid: '<%=@resume_doc.private_guid%>', json_data: json_payload, note: note, bid: '<%=@bid%>', poster_name: name});
   		clearNoteCreateBubbles();
   	}
   }

@@ -69,10 +69,11 @@
 		background-color: #FAFAFA;
 		border:1px solid #CCC;
 		padding:13px;
-		color:#232323;
+		color:rgb(76, 97, 136);
 		font-size:15px;
 		position:relative;
 		height:36;
+		font-weight:bold;
 	}
 	
 	.ReviewerFeedback .Person .Name .FeedbackCount{
@@ -145,7 +146,7 @@
 <center>
 	<div id="main_body_column">
 		<div id="header_bar">
-			<img src="/images/TitleBarIcon.png" align="middle" style="margin-top: -14px;"> Resume Feedback & Endorsements
+			<img src="/images/headerlogo.png" style="margin-top:4px;">
 		</div>
 		<div style="padding:25px;">
 			<div id="step1Label" style="float:left;width:33%;text-align:center;font-weight:bold;cursor:pointer;" onclick="moveToStep1()">
@@ -259,7 +260,7 @@
 						</div>
 						<% feedback[1].each do |f| %>
 						<div class="Item Active" id="<%=f.id%>" data-person_id="<%=f.bid%>" data-feedback_type="<%=f.feedback_type%>" onclick="showFeedback(this);" data-payload='<%=f.json_data%>'>
-							<div style="float:left;"><img src="/images/<%=(f.feedback_type == 'note')? "note" : "draw"%>BubbleWhite.png"></div>
+							<div style="float:left;"><img src="/images/<%=(f.feedback_type == 'note')? "Note" : "Draw"%>Icon.png"></div>
 							<div style="float:left;padding-left:10px;width:80%;"><%=f.note%></div>
 							<div style="clear:both;"></div>
 						</div>
@@ -276,13 +277,13 @@
 							<div class="FeedbackCount">3</div>
 						</div>
 						<div class="Item Active" id="123" data-person_id="3" data-feedback_type="note" onclick="showFeedback(this);" data-payload='{"note":"Consider reworking this sentance. It sounds weird.  Maybe combine it with the bullets bellow.","position":{"x":100,"y":150}}'>
-							<div style="float:left;"><img src="/images/NoteBubbleWhite.png"></div>
+							<div style="float:left;"><img src="/images/NoteIcon.png"></div>
 							<div style="float:left;padding-left:10px;width:80%;">Consider reworking this sentance. It sounds weird.  Maybe combine it with the bullets bellow.</div>
 							<div style="clear:both;"></div>
 						</div>
 						<div class="clear"></div>
 						<div class="Item" id="124" data-person_id="3" data-feedback_type="note" onclick="showFeedback(this);" data-payload='{"note":"Not sure about this format.","position":{"x":300,"y":100}}'>
-							<div style="float:left;"><img src="/images/NoteBubbleWhite.png"></div>
+							<div style="float:left;"><img src="/images/NoteIcon.png"></div>
 							<div style="float:left;padding-left:10px;width:80%;">Not sure about this format.</div>
 							<div style="clear:both;"></div>
 						</div>
@@ -293,7 +294,7 @@
 						{"line_color":"#0000FF","start_point":{"x":125.0,"y":230.0},"path_elements":[{"x":-10.0,"y":-10.0},{"x":-1.0,"y":-15.0},{"x":-150.0,"y":15.0}]},
 						{"line_color":"#FF00FF","start_point":{"x":90,"y":120},"path_elements":[{"x":-1,"y":1},{"x":0,"y":7},{"x":-6,"y":13},{"x":-3,"y":15},{"x":-3,"y":10},{"x":-4,"y":27},{"x":0,"y":21},{"x":0,"y":10},{"x":4,"y":25},{"x":9,"y":13},{"x":12,"y":8},{"x":13,"y":4},{"x":18,"y":0},{"x":12,"y":-9},{"x":9,"y":-14},{"x":7,"y":-50},{"x":-2,"y":-14},{"x":-8,"y":-9},{"x":-13,"y":-7},{"x":-11,"y":-6},{"x":-17,"y":-8},{"x":-8,"y":-1},{"x":-14,"y":0},{"x":-8,"y":-2}]}
 						]}'>
-							<div style="float:left;"><img src="/images/DrawBubbleWhite.png"></div>
+							<div style="float:left;"><img src="/images/DrawIcon.png"></div>
 							<div style="float:left;padding-left:10px;width:80%;">Strong point.  Maybe move higher in the list.</div>
 							<div style="clear:both;"></div>
 						</div>
@@ -305,7 +306,7 @@
 							<div class="FeedbackCount">1</div>
 						</div>
 						<div class="Item" id="234" data-person_id="3" data-feedback_type="annotation" onclick="showFeedback(this);" data-payload='{"note":"You should move this section up here.","paths":[{"line_color":"#FF0000","start_point":{"x":38.0909423828125,"y":499.4545440673828},"path_elements":[{"x":0,"y":0},{"x":5,"y":-1},{"x":13,"y":0},{"x":12,"y":0},{"x":13,"y":0},{"x":12,"y":0},{"x":14,"y":0},{"x":14,"y":0},{"x":24,"y":0},{"x":17,"y":0},{"x":12,"y":0},{"x":14,"y":2},{"x":20,"y":2},{"x":14,"y":3},{"x":8,"y":1},{"x":17,"y":4},{"x":21,"y":6},{"x":18,"y":7},{"x":25,"y":12},{"x":9,"y":6},{"x":8,"y":4},{"x":8,"y":9},{"x":1,"y":4},{"x":2,"y":9},{"x":0,"y":8},{"x":0,"y":7},{"x":0,"y":7},{"x":0,"y":6},{"x":-2,"y":6},{"x":-4,"y":3},{"x":-4,"y":3},{"x":-3,"y":3},{"x":-5,"y":2},{"x":-7,"y":4},{"x":-12,"y":3},{"x":-21,"y":0},{"x":-20,"y":0},{"x":-32,"y":0},{"x":-13,"y":0},{"x":-22,"y":0},{"x":-28,"y":-2},{"x":-11,"y":-2},{"x":-10,"y":-2},{"x":-9,"y":-1},{"x":-9,"y":-1},{"x":-8,"y":-1},{"x":-10,"y":-1},{"x":-9,"y":0},{"x":-9,"y":0},{"x":-8,"y":0},{"x":-9,"y":0},{"x":-6,"y":0},{"x":-6,"y":0},{"x":-6,"y":0},{"x":-6,"y":-3},{"x":-4,"y":-4},{"x":-3,"y":-6},{"x":-4,"y":-8},{"x":-1,"y":-10},{"x":-2,"y":-10},{"x":-1,"y":-8},{"x":-1,"y":-8},{"x":0,"y":-4},{"x":-1,"y":-5},{"x":0,"y":-3},{"x":0,"y":-4},{"x":0,"y":-6},{"x":1,"y":-4},{"x":2,"y":-5},{"x":1,"y":-4},{"x":2,"y":-4},{"x":0,"y":-4},{"x":1,"y":-3},{"x":3,"y":-5},{"x":2,"y":-4},{"x":1,"y":-3},{"x":1,"y":0}]},{"line_color":"#FF0000","start_point":{"x":58.0909423828125,"y":502.4545440673828},"path_elements":[{"x":0,"y":0},{"x":-1,"y":-2},{"x":-3,"y":-6},{"x":-4,"y":-5},{"x":-4,"y":-7},{"x":-1,"y":-5},{"x":-2,"y":-4},{"x":-2,"y":-6},{"x":-1,"y":-2},{"x":0,"y":-6},{"x":0,"y":-11},{"x":0,"y":-5},{"x":0,"y":-2},{"x":1,"y":-3},{"x":3,"y":-3},{"x":2,"y":-3},{"x":3,"y":-3},{"x":2,"y":-3},{"x":4,"y":-2},{"x":4,"y":-2},{"x":4,"y":-1},{"x":3,"y":-2},{"x":3,"y":-1},{"x":5,"y":-2},{"x":3,"y":-1},{"x":2,"y":-2},{"x":3,"y":-1},{"x":3,"y":0},{"x":2,"y":-1},{"x":1,"y":0},{"x":0,"y":-2},{"x":1,"y":-1},{"x":3,"y":-1},{"x":1,"y":0},{"x":3,"y":-3},{"x":3,"y":-3},{"x":3,"y":-3},{"x":6,"y":-3},{"x":3,"y":-3},{"x":3,"y":-1},{"x":5,"y":-3},{"x":5,"y":-2},{"x":7,"y":-4},{"x":7,"y":-1},{"x":5,"y":-2},{"x":6,"y":-2},{"x":5,"y":-2},{"x":7,"y":-2},{"x":9,"y":-2},{"x":15,"y":-3},{"x":11,"y":-3},{"x":12,"y":-4},{"x":9,"y":-1},{"x":9,"y":-2},{"x":14,"y":-3},{"x":9,"y":-2},{"x":9,"y":-1},{"x":5,"y":0},{"x":6,"y":0},{"x":1,"y":-1},{"x":2,"y":0},{"x":1,"y":0},{"x":2,"y":0},{"x":1,"y":0}]},{"line_color":"#FF0000","start_point":{"x":259.0909423828125,"y":338.4545440673828},"path_elements":[{"x":0,"y":0},{"x":2,"y":2},{"x":4,"y":4},{"x":3,"y":4},{"x":4,"y":3},{"x":3,"y":3},{"x":1,"y":1},{"x":1,"y":1},{"x":1,"y":0},{"x":1,"y":1},{"x":0,"y":1},{"x":3,"y":2},{"x":0,"y":1},{"x":-3,"y":1},{"x":-7,"y":4},{"x":-8,"y":5},{"x":-5,"y":2},{"x":-3,"y":2},{"x":-2,"y":3},{"x":-2,"y":2},{"x":-1,"y":2}]}]}'>
-							<div style="float:left;"><img src="/images/DrawBubbleWhite.png"></div>
+							<div style="float:left;"><img src="/images/DrawIcon.png"></div>
 							<div style="float:left;padding-left:10px;width:80%;">You should move this section up here.</div>
 							<div style="clear:both;"></div>
 						</div>
@@ -325,7 +326,7 @@
 				<div id="feedbacktype1" class="feedback_enabled feedback_tab_left" onclick="setFeedbackMode('1note');">Leave Note</div>
 				<div id="feedbacktype2" class="feedback_disabled feedback_tab" onclick="setFeedbackMode('2annotate');">Draw</div>
 				<div id="feedbacktype3" class="feedback_disabled feedback_tab" onclick="setFeedbackMode('3skills');">Suggest Skills</div>
-				<div id="feedbacktype4" class="feedback_disabled feedback_tab_right" onclick="setFeedbackMode('4endorcement');">Endorse <%=@resume_doc.owner_name || "Adam"%></div>
+				<div id="feedbacktype4" class="feedback_disabled feedback_tab_right" onclick="setFeedbackMode('4endorcement');">Endorse <%=@resume_doc.owner_name.split(' ').first || "Adam"%></div>
 				<div class="clear"></div>
 			</div>
 			<div style="clear:both;"></div>
@@ -716,6 +717,9 @@ function hideFeedbackBar(){
 /**************************************************************/
 
 function addNoteCreateBubble(point){
+	clearNoteBubbles();
+	clearNoteCreateBubbles();
+	clearAnnotations();
 	var bubble_div = $("<div id='create_note'>");
 	bubble_div.addClass("NoteCreateBubble");
 	bubble_div.css({"top":point.y,"left":point.x})
@@ -734,13 +738,13 @@ function addNoteBubble(note, point){
 	var bubble_div = $("<div></div>");
 	bubble_div.addClass("NoteBubble");
 	bubble_div.css({"top":point.y + 25,"left":point.x})
-	bubble_div.html("<img src='/images/NoteBubbleWhite.png' style='position: absolute;left: -19px;top: -15px;'>" + note);
+	bubble_div.html("<img src='/images/NoteIcon.png' style='position: absolute;left: -19px;top: -15px;'>" + note);
 	$("#resumeHTML").append(bubble_div);
 	note_bubbles.push(bubble_div);
 }
 
   function clearNoteCreateBubbles(){
-  	$("[id=create_note]").each(function(){
+  	$("[id^=create_note]").each(function(){
 			this.remove();
   	});
   }
@@ -953,6 +957,7 @@ function showFeedback(sender) {
 	switch($(sender).data('feedback_type')){
 		case "note":
 			clearAnnotations();
+			clearNoteCreateBubbles();
 			var json = $(sender).data('payload');
 			var location_point = new PointV2(json.position.x, json.position.y);
 			addNoteBubble(json.note, location_point);
