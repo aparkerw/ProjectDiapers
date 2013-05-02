@@ -1,5 +1,3 @@
-<% first_name = "Adam" %>
-<% person_name = "Adam Parker" %>
 <script src="http://connect.facebook.net/en_US/all.js"></script>
 <script src="/javascript/raphael-min.js" type="text/javascript" charset="utf-8"></script>
 <style type="text/css">
@@ -149,11 +147,8 @@
 		<div id="header_bar">
 			<img src="/images/TitleBarIcon.png" align="middle" style="margin-top: -14px;"> Resume Feedback & Endorsements
 		</div>
-		<div style="padding:25px;">
-			<div id="step3Label" style="float:left;width:33%;text-align:center;cursor:pointer;" onclick="moveToStep3()">
-				<img src="/images/StepDotActive.png" align="middle" style="margin-top: -10px;" id="step3Image"> Step 3
-			</div>
-			<div style="clear:both;"></div>
+		<div style="padding:15px;">
+			&nbsp;
 		</div>
 
 
@@ -162,19 +157,17 @@
 			<img src="/images/SectionBarBottomCap.gif" style="position:absolute;bottom:0px;left:-6px;">
 					
 			
-			
-			<div id="step_3_action_panel" style="margin-left:10px;">
-				<div class="step_header">Review Your Feedback</div>
-				<div class="step_description">Below you will find the comments and keyword suggestions left by your collaborators.  Just simply scroll over any reviewer to view all of their suggestions.</div>
+			<div style="margin-left:10px;">
+				<div class="step_header">Tell us your name</div>
+				<div class="step_description">Please tell us your name so we can tell <%=@resume_doc.owner_name.split(' ').first%> who the feedback is from.</div>
+				<input type="text" name="poster_name" placeholder="your name">
+
+
+				<div class="step_header" style="margin-top:20px">Your Feedback</div>
 				
-				<% if @feedback.count > 0 %>
 				<div class="ReviewerFeedback">
 					<% @feedback.each do |feedback| %>
 					<div class="Person" id="1">
-						<div class="Name">
-							<%= feedback[1].first.name%>
-							<div class="FeedbackCount"><%= feedback[1].count%></div>
-						</div>
 						<% feedback[1].each do |f| %>
 						<div class="Item Active" id="<%=f.id%>" data-person_id="<%=f.bid%>" data-feedback_type="<%=f.feedback_type%>" onclick="showFeedback(this);" data-payload='<%=f.json_data%>'>
 							<div style="float:left;"><img src="/images/<%=(f.feedback_type == 'note')? "note" : "draw"%>BubbleWhite.png"></div>
@@ -186,52 +179,10 @@
 					</div>
 					<% end %>
 				</div>
-				<% else %>
-				<div class="ReviewerFeedback">
-					<div class="Person" id="1">
-						<div class="Name">
-							Laurie Gellatta
-							<div class="FeedbackCount">3</div>
-						</div>
-						<div class="Item Active" id="123" data-person_id="3" data-feedback_type="note" onclick="showFeedback(this);" data-payload='{"note":"Consider reworking this sentance. It sounds weird.  Maybe combine it with the bullets bellow.","position":{"x":100,"y":150}}'>
-							<div style="float:left;"><img src="/images/NoteBubbleWhite.png"></div>
-							<div style="float:left;padding-left:10px;width:80%;">Consider reworking this sentance. It sounds weird.  Maybe combine it with the bullets bellow.</div>
-							<div style="clear:both;"></div>
-						</div>
-						<div class="clear"></div>
-						<div class="Item" id="124" data-person_id="3" data-feedback_type="note" onclick="showFeedback(this);" data-payload='{"note":"Not sure about this format.","position":{"x":300,"y":100}}'>
-							<div style="float:left;"><img src="/images/NoteBubbleWhite.png"></div>
-							<div style="float:left;padding-left:10px;width:80%;">Not sure about this format.</div>
-							<div style="clear:both;"></div>
-						</div>
-						<div class="clear"></div>
-						<div class="Item" id="125" data-person_id="3" data-feedback_type="annotation" onclick="showFeedback(this);" data-payload='{"note":"Strong point.  Maybe move higher in the list.","paths":[{"line_color":"#FF0000","start_point":{"x":10.0,"y":10.0},"path_elements":[{"x":10.0,"y":10.0},{"x":10.0,"y":10.0},{"x":10.0,"y":10.0}]},{"line_color":"#00FF00","start_point":{"x":25.0,"y":30.0},
-						"path_elements":[
-						{"x":10.0,"y":10.0},{"x":1.0,"y":15.0},{"x":15.0,"y":15.0}]},
-						{"line_color":"#0000FF","start_point":{"x":125.0,"y":230.0},"path_elements":[{"x":-10.0,"y":-10.0},{"x":-1.0,"y":-15.0},{"x":-150.0,"y":15.0}]},
-						{"line_color":"#FF00FF","start_point":{"x":90,"y":120},"path_elements":[{"x":-1,"y":1},{"x":0,"y":7},{"x":-6,"y":13},{"x":-3,"y":15},{"x":-3,"y":10},{"x":-4,"y":27},{"x":0,"y":21},{"x":0,"y":10},{"x":4,"y":25},{"x":9,"y":13},{"x":12,"y":8},{"x":13,"y":4},{"x":18,"y":0},{"x":12,"y":-9},{"x":9,"y":-14},{"x":7,"y":-50},{"x":-2,"y":-14},{"x":-8,"y":-9},{"x":-13,"y":-7},{"x":-11,"y":-6},{"x":-17,"y":-8},{"x":-8,"y":-1},{"x":-14,"y":0},{"x":-8,"y":-2}]}
-						]}'>
-							<div style="float:left;"><img src="/images/DrawBubbleWhite.png"></div>
-							<div style="float:left;padding-left:10px;width:80%;">Strong point.  Maybe move higher in the list.</div>
-							<div style="clear:both;"></div>
-						</div>
-						<div class="clear"></div>
-					</div>
-					<div class="Person" id="2">
-						<div class="Name">
-							Jim Kelly
-							<div class="FeedbackCount">1</div>
-						</div>
-						<div class="Item" id="234" data-person_id="3" data-feedback_type="annotation" onclick="showFeedback(this);" data-payload='{"note":"You should move this section up here.","paths":[{"line_color":"#FF0000","start_point":{"x":38.0909423828125,"y":499.4545440673828},"path_elements":[{"x":0,"y":0},{"x":5,"y":-1},{"x":13,"y":0},{"x":12,"y":0},{"x":13,"y":0},{"x":12,"y":0},{"x":14,"y":0},{"x":14,"y":0},{"x":24,"y":0},{"x":17,"y":0},{"x":12,"y":0},{"x":14,"y":2},{"x":20,"y":2},{"x":14,"y":3},{"x":8,"y":1},{"x":17,"y":4},{"x":21,"y":6},{"x":18,"y":7},{"x":25,"y":12},{"x":9,"y":6},{"x":8,"y":4},{"x":8,"y":9},{"x":1,"y":4},{"x":2,"y":9},{"x":0,"y":8},{"x":0,"y":7},{"x":0,"y":7},{"x":0,"y":6},{"x":-2,"y":6},{"x":-4,"y":3},{"x":-4,"y":3},{"x":-3,"y":3},{"x":-5,"y":2},{"x":-7,"y":4},{"x":-12,"y":3},{"x":-21,"y":0},{"x":-20,"y":0},{"x":-32,"y":0},{"x":-13,"y":0},{"x":-22,"y":0},{"x":-28,"y":-2},{"x":-11,"y":-2},{"x":-10,"y":-2},{"x":-9,"y":-1},{"x":-9,"y":-1},{"x":-8,"y":-1},{"x":-10,"y":-1},{"x":-9,"y":0},{"x":-9,"y":0},{"x":-8,"y":0},{"x":-9,"y":0},{"x":-6,"y":0},{"x":-6,"y":0},{"x":-6,"y":0},{"x":-6,"y":-3},{"x":-4,"y":-4},{"x":-3,"y":-6},{"x":-4,"y":-8},{"x":-1,"y":-10},{"x":-2,"y":-10},{"x":-1,"y":-8},{"x":-1,"y":-8},{"x":0,"y":-4},{"x":-1,"y":-5},{"x":0,"y":-3},{"x":0,"y":-4},{"x":0,"y":-6},{"x":1,"y":-4},{"x":2,"y":-5},{"x":1,"y":-4},{"x":2,"y":-4},{"x":0,"y":-4},{"x":1,"y":-3},{"x":3,"y":-5},{"x":2,"y":-4},{"x":1,"y":-3},{"x":1,"y":0}]},{"line_color":"#FF0000","start_point":{"x":58.0909423828125,"y":502.4545440673828},"path_elements":[{"x":0,"y":0},{"x":-1,"y":-2},{"x":-3,"y":-6},{"x":-4,"y":-5},{"x":-4,"y":-7},{"x":-1,"y":-5},{"x":-2,"y":-4},{"x":-2,"y":-6},{"x":-1,"y":-2},{"x":0,"y":-6},{"x":0,"y":-11},{"x":0,"y":-5},{"x":0,"y":-2},{"x":1,"y":-3},{"x":3,"y":-3},{"x":2,"y":-3},{"x":3,"y":-3},{"x":2,"y":-3},{"x":4,"y":-2},{"x":4,"y":-2},{"x":4,"y":-1},{"x":3,"y":-2},{"x":3,"y":-1},{"x":5,"y":-2},{"x":3,"y":-1},{"x":2,"y":-2},{"x":3,"y":-1},{"x":3,"y":0},{"x":2,"y":-1},{"x":1,"y":0},{"x":0,"y":-2},{"x":1,"y":-1},{"x":3,"y":-1},{"x":1,"y":0},{"x":3,"y":-3},{"x":3,"y":-3},{"x":3,"y":-3},{"x":6,"y":-3},{"x":3,"y":-3},{"x":3,"y":-1},{"x":5,"y":-3},{"x":5,"y":-2},{"x":7,"y":-4},{"x":7,"y":-1},{"x":5,"y":-2},{"x":6,"y":-2},{"x":5,"y":-2},{"x":7,"y":-2},{"x":9,"y":-2},{"x":15,"y":-3},{"x":11,"y":-3},{"x":12,"y":-4},{"x":9,"y":-1},{"x":9,"y":-2},{"x":14,"y":-3},{"x":9,"y":-2},{"x":9,"y":-1},{"x":5,"y":0},{"x":6,"y":0},{"x":1,"y":-1},{"x":2,"y":0},{"x":1,"y":0},{"x":2,"y":0},{"x":1,"y":0}]},{"line_color":"#FF0000","start_point":{"x":259.0909423828125,"y":338.4545440673828},"path_elements":[{"x":0,"y":0},{"x":2,"y":2},{"x":4,"y":4},{"x":3,"y":4},{"x":4,"y":3},{"x":3,"y":3},{"x":1,"y":1},{"x":1,"y":1},{"x":1,"y":0},{"x":1,"y":1},{"x":0,"y":1},{"x":3,"y":2},{"x":0,"y":1},{"x":-3,"y":1},{"x":-7,"y":4},{"x":-8,"y":5},{"x":-5,"y":2},{"x":-3,"y":2},{"x":-2,"y":3},{"x":-2,"y":2},{"x":-1,"y":2}]}]}'>
-							<div style="float:left;"><img src="/images/DrawBubbleWhite.png"></div>
-							<div style="float:left;padding-left:10px;width:80%;">You should move this section up here.</div>
-							<div style="clear:both;"></div>
-						</div>
-						<div class="clear"></div>
-					</div>
-				</div>
-				<% end %>
 
+
+				<div class="step_header" style="margin-top:20px;">Suggest Keywords to Add</div>
+				<div class="step_description">The following keywords are what you've suggested that <%=@resume_doc.owner_name.split(' ').first%> add.  These keywords will help employers and recruiters find this resume more easily and help identify relevant skills.</div>
 				
 			</div>
 			
@@ -243,7 +194,7 @@
 				<div id="feedbacktype1" class="feedback_enabled feedback_tab_left" onclick="setFeedbackMode('1note');">Leave Note</div>
 				<div id="feedbacktype2" class="feedback_disabled feedback_tab" onclick="setFeedbackMode('2annotate');">Draw</div>
 				<div id="feedbacktype3" class="feedback_disabled feedback_tab" onclick="setFeedbackMode('3skills');">Suggest Skills</div>
-				<div id="feedbacktype4" class="feedback_disabled feedback_tab_right" onclick="setFeedbackMode('4endorcement');">Endorse <%=first_name%></div>
+				<div id="feedbacktype4" class="feedback_disabled feedback_tab_right" onclick="setFeedbackMode('4endorcement');">Endorse <%=@resume_doc.owner_name.split(' ').first%></div>
 				<div class="clear"></div>
 			</div>
 			<div style="clear:both;"></div>
@@ -282,46 +233,7 @@
 	// variable to capture what a user has highlighted in their resume
 	var highlightedText = null;
 	
-	function findSensitiveData(){
-		var HTML = $('#htmlresume').html();
-		findName(HTML);
-		findAddress(HTML);
-		findPhoneNumbers(HTML);
-		findEmails(HTML);
-		findSSN(HTML);
 
-	}
-	
-	function findPhoneNumbers(HTML){
-		var re = /\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})/g; //;new RegExp("\d{3}");
-		var matches = HTML.match(re);
-		for(var i=0; i < matches.length; i++){
-			addWarningBubble(matches[i], "Phone");
-		}
-	}
-	function findEmails(HTML){
-		var re = /([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+/g;
-		var matches = HTML.match(re);
-		for(var i=0; i < matches.length; i++){
-			addWarningBubble(matches[i], "Email");
-		}
-	}
-	function findName(HTML){
-		var re = /<%=(@resume_doc)?@resume_doc.owner_name : "Adam Parker"%>/ig;
-		var matches = HTML.match(re);
-		for(var i=0; i < matches.length; i++){
-			addWarningBubble(matches[i],"Name");
-		}
-	}
-	function findAddress(HTML){
-	}
-	function findSSN(HTML){
-		var re = /[0-9]{3}-[0-9]{2}-[0-9]{4}/g;
-		var matches = HTML.match(re);
-		for(var i=0; i < matches.length; i++){
-			addWarningBubble(matches[i],"SSN");
-		}
-	}
 	function addWarningBubble(message, type){
 		$("#warnings").show(100);
 		$("#warningsLabel").show(100);
@@ -339,172 +251,8 @@
 		newWarning.show(1000);
 	}
 	
-	// function to determine highlighted text and black it out
-	function blackoutHighlightedText() {
-		if(highlightedText)
-		{
-			blackOutText(highlightedText);
-			highlightedText = null;
-		}
-	}
-
-	// function to determine highlighted	
-	function getHighlightedText() {
-		var range = window.getSelection().getRangeAt(0);
-		console.log(range);
-		highlightedText = range.toString();
-	}
 	
-	function clearHighlightedText() {
-		highlightedText = null;
-	}
-	
-	function blackOutText(message){
-		var originalText = $('#htmlresume').html();
-		var rangeStart = originalText.indexOf(message);
-		var rangeLength = message.length;
 		
-		var blankString = "";
-		for(var i = 0; i < rangeLength; i++){
-			blankString += "n";
-		}
-		blackoutText = "<span style='background-color:#333;color:#333;text-decoration:none;'>"+blankString+"</span>";
-
-		// have to add 6 for a <span> that shows up randomly between start and now
-		var newText = originalText.substring(0,rangeStart) + blackoutText + originalText.substring(rangeStart+rangeLength, originalText.length);
-		
-		$('#htmlresume').html(newText);
-	}
-	
-	function clearBlackoutDivs() {
-		var priorDIVs = $('[id$=hideButton]');
-		priorDIVs.each(function(){
-			$(this).remove();
-		});
-	}
-	
-	function showBlackoutButton(yPosition) {
-	  var xPosition = $('#htmlresume').position().left - 75;
-		clearBlackoutDivs();
-		var buttonDiv = $("<div id='hideButton'>");
-		buttonDiv.addClass('hide_data_bubble');
-		buttonDiv.css({"top":yPosition-12,"left":xPosition});
-		buttonDiv.append($("<div style='float:left;padding:2px;border-right:1px solid #1E608F;'>X</div>"));
-		buttonDiv.append($("<div style='float:left;padding-top:2px;padding-left:8px;padding-right:8px;'>Hide</div>"));
-		buttonDiv.append($("<div style='clear:both;'></div>"));
-		buttonDiv.click(function(){blackoutHighlightedText();$(this).remove();});
-		$("body").append(buttonDiv);
-	}
-	
-	function moveToStep3()
-	{
-		$("#step1Label").css({"color":"silver","font-weight":"none"});
-		$("#step1Image").attr("src","/images/StepDotInactive.png");
-		$("#step2Label").css({"color":"silver","font-weight":"none"});
-		$("#step2Image").attr("src","/images/StepDotInactive.png");
-		$("#step3Label").css({"color":"black","font-weight":"bold"});
-		$("#step3Image").attr("src","/images/StepDotActive.png");
-		
-		showFeedbackBar();
-		
-		clearBlackoutDivs();
-		
-		$("#step_2_action_panel").hide(400, function(){
-			$("#step_1_action_panel").hide(400, function(){			
-				$("#step_3_action_panel").show(400);
-			});
-		});
-		
-		// add annotations
-		$("#resumeHTML").css("position","relative").append($('<div id="canvas_container"></div>'));
-    $('#canvas_container').mousemove(function(e) {
-    	currentMousePos = new PointV2(e.pageX - $("#resumeHTML").position().left, e.pageY - $("#resumeHTML").position().top);
-    });
-    $('#canvas_container').mousedown(function(e) { 
-   		console.log("DOWN");
-   		switch(edit_mode){
-   			case "note":
-		    	var note_point = new PointV2(e.pageX - $("#resumeHTML").position().left, e.pageY - $("#resumeHTML").position().top);
-					addNoteCreateBubble(note_point);
-   			break;
-   			case "annotation":
-   				var curr_annotation = new Annotation();
-   				if(annotations.length > 0){
-   					curr_annotation = annotations[0];
-   				}
-		      pen_down = true;
-				 	setTimeout(function(){trackMouse();}, 1);
-					current_path = new DrawingPath();
-					current_path.start_point = new PointV2(e.pageX - $("#resumeHTML").position().left, e.pageY - $("#resumeHTML").position().top);
-				 	curr_annotation.drawings.push(current_path);
-				 	annotations = new Array();
-				 	annotations.push(curr_annotation);
-   			break;
-   		}
-    });
-    $('#canvas_container').mouseup(function(event) { 
-   		console.log("UP");
-       pen_down = false;
-    });
-		setupCanvas();
-			current_path = new DrawingPath();
-		drawAnnotations();
-	}
-	
-	
-	// LETS FIND THE SENSITIVE INFORMATIOn
-	findSensitiveData();
-
-	$("#htmlresume").mouseup(function(e){
-		getHighlightedText();
-			if(highlightedText != null && highlightedText != ""){
-				showBlackoutButton(e.pageY);
-			}
-		});
-		
-
-  function showConnectionsIdeal(payload) {
-  	$(payload.json_data.profiles).each(function(){
-  	  var profile_div = $("<div style='border:1px solid #ddd; padding:10px; background-color:#FAFAFA;'>");
-  	  
-  		var pic_div = $("<div>").html('<img src="'+this.pic_url+'" width="30px">').css("float","left");
-  		var detail_info = $("<div>").css({"padding-left":"12px","float":"left","font-size":"12px"}).html("<b>"+this.name+"</b>");
-
-  	  if(this.last_job_title) {
-	  	  detail_info.append($("<div>").html(this.last_job_title));
-	  	}
-  	  profile_div.append(pic_div).append(detail_info).append($("<div style='clear:both;'>"));
-  	  
-  		$("#FBProfilesIdeal").append(profile_div);
-  	});
-  }
-		
-  function showConnections(payload) {
-  	$(payload.json_data.profiles).each(function(){
-  	  var profile_div = $("<div style='border:1px solid #ddd; padding:10px; background-color:#FAFAFA;'>");
-  	  
-  		var pic_div = $("<div>").html('<img src="'+this.pic_url+'" width="30px">').css("float","left");
-  		var detail_info = $("<div>").css({"float":"left","font-size":"12px"}).html("<b>"+this.name+"</b>");
-
-  	  if(this.last_job_title) {
-	  	  detail_info.append($("<div>").html(this.last_job_title));
-	  	}
-  	  profile_div.append(pic_div).append(detail_info).append($("<div style='clear:both;'>"));
-  	  
-  		$("#FBProfiles").append(profile_div);
-  	});
-  }
-  
-  function linkedInComposer(){
-  	window.open('http://www.linkedin.com/shareArticle?mini=true&url=http://resumecritique.herokuapp.com/resume/critique?for=SOMELONGUNIQUEIDENTIFIERHERE&title=Help Adam make their resume awesome&summary=Adam%20wants your help making their resume awesome: &source=http://resumecritique.herokuapp.com/resume/critique?for=SOMELONGUNIQUEIDENTIFIERHERE','resumeshare','width=600,height=345');
-  }
-  
-  function gmailComposer(){
-//  	var composer = $("<div style='width:100%;position:absolute;top:0px;left:0px;height:100%;'></div>");
-//  	composer.html('<center><iframe src="https://mail.google.com/mail/?view=cm" style="width:1000px;height:1000px;"></iframe></center>');
-//  	$("body").append(composer);
-  	window.open('https://mail.google.com/mail/?view=cm&fs=1&to=someone@example.com&su=Help Adam make their resume awesome&body=Adam%20wants your help making their resume awesome: <a href="' + 'http://resumecritique.herokuapp.com/resume/critique?for=SOMELONGUNIQUEIDENTIFIERHERE' + '">click here to review</a>','resumeshare','width=600,height=345');
-  }
 </script>
 
 <script type="text/javascript">
@@ -562,14 +310,42 @@ function setFeedbackMode(switchTo){
 	}
 }
 
-function showFeedbackBar(){
-	$("#feedbackbar").show(200);
-	$("#annotationmessgebar").show(200);
-}
-function hideFeedbackBar(){
-	$("#feedbackbar").hide(100);
-	$("#annotationmessgebar").hide(100);
-}
+	function setupPageForEdit(){
+		// add annotations
+		$("#resumeHTML").css("position","relative").append($('<div id="canvas_container"></div>'));
+    $('#canvas_container').mousemove(function(e) {
+    	currentMousePos = new PointV2(e.pageX - $("#resumeHTML").position().left, e.pageY - $("#resumeHTML").position().top);
+    });
+    $('#canvas_container').mousedown(function(e) { 
+   		console.log("DOWN");
+   		switch(edit_mode){
+   			case "note":
+		    	var note_point = new PointV2(e.pageX - $("#resumeHTML").position().left, e.pageY - $("#resumeHTML").position().top);
+					addNoteCreateBubble(note_point);
+   			break;
+   			case "annotation":
+   				var curr_annotation = new Annotation();
+   				if(annotations.length > 0){
+   					curr_annotation = annotations[0];
+   				}
+		      pen_down = true;
+				 	setTimeout(function(){trackMouse();}, 1);
+					current_path = new DrawingPath();
+					current_path.start_point = new PointV2(e.pageX - $("#resumeHTML").position().left, e.pageY - $("#resumeHTML").position().top);
+				 	curr_annotation.drawings.push(current_path);
+				 	annotations = new Array();
+				 	annotations.push(curr_annotation);
+   			break;
+   		}
+    });
+    $('#canvas_container').mouseup(function(event) { 
+   		console.log("UP");
+       pen_down = false;
+    });
+		setupCanvas();
+			current_path = new DrawingPath();
+		drawAnnotations();
+	}
 
 </script>
 
@@ -581,10 +357,13 @@ function hideFeedbackBar(){
 /**************************************************************/
 
 function addNoteCreateBubble(point){
+  clearNoteCreateBubbles();
+  clearNoteBubbles();
+	clearAnnotations();
 	var bubble_div = $("<div id='create_note'>");
 	bubble_div.addClass("NoteCreateBubble");
 	bubble_div.css({"top":point.y,"left":point.x})
-	bubble_div.html('Leave a note:<br><textarea></textarea><input type="button" value="done">');
+	bubble_div.html('Leave a note:<br><textarea id="note_text"></textarea><input type="button" value="done" data-point=\'{"x":'+point.x+',"y":'+point.y+'}\' onclick="ajaxSaveNote(this);">');
 	$("#resumeHTML").append(bubble_div);
 }
 
@@ -605,9 +384,21 @@ function addNoteBubble(note, point){
 }
 
   function clearNoteCreateBubbles(){
-  	$("[id=create_note]").each(function(){
+  	$("[id^=create_note]").each(function(){
 			this.remove();
   	});
+  }
+  
+  function ajaxSaveNote(sender){
+  	
+  	var note = $(sender).parents("#create_note").children("#note_text").val();
+  	if(note == null || note == ""){
+  		alert('please enter a note before saving');
+  	}else{
+		  var json_payload = '{"note": "'+note+'","position":{"x":' + $(sender).data('point').x + ',"y":'+$(sender).data('point').y+'}}';
+			$.post("/resume/ajax_add_note",{private_guid: '<%=@resume_doc.private_guid%>', json_data: json_payload, note: note, bid: '<%=@bid%>', poster_name: 'john doe'});
+  		clearNoteCreateBubbles();
+  	}
   }
 
 </script>
@@ -779,35 +570,11 @@ function Annotation() {
   var edit_mode = "note";
   var note_bubbles = new Array();
   
-</script>
-
-
-	<script src="http://sui.careerbuilder.com/javascript/social-ui-data.js" type="text/javascript" data-sui_type="SUIDataLib">
-		{"run_mode":"PROD"}
-	</script>
-
-	<script src="http://sui.careerbuilder.com/javascript/social-ui.js" type="text/javascript" data-sui_type="SUILib">
-		{"run_mode":"PROD","auto_login":"<%="#{request.protocol}#{request.host_with_port}"%>/same_origin_hook"}
-	</script> 
+	setupPageForEdit();
+  
+</script> 
+	 
 	
-	<script>
-		// assume we are already logged in
-		FB.init({appId: '<%= SITE_CONFIG["fb_app_id"] %>', xfbml: true, cookie: true});
-
-
-		function sendFBInvitation() {		
-      FB.ui({
-          method: 'send',
-          name: 'Facebook Dialogs',
-          link: 'http://resumecritique.herokuapp.com/resume/critique',
-          name: 'Adam wants you to review his resume.',
-          description: "Adam would love it if you could review and critique his resume.  It's fast, simple and could help Adam land that next dream job!"
-          });
-  	}
-	 </script>
-	 
-	 
-
 <script type="text/javascript">
 
 /**************************************************************/
@@ -819,6 +586,7 @@ function showFeedback(sender) {
 		case "note":
 			clearAnnotations();
 			var json = $(sender).data('payload');
+			console.log(json);
 			var location_point = new PointV2(json.position.x, json.position.y);
 			addNoteBubble(json.note, location_point);
 		break;

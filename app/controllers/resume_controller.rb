@@ -38,6 +38,12 @@ class ResumeController < ApplicationController
 	end
 	
 	def provide_critique
+		if cookies[:bid].blank?
+			@bid = "BID"+(0...15).map{65.+(rand(25)).chr}.join
+			cookies[:bid] = @bid
+		else
+			@bid = cookies[:bid]
+		end
 		resume_doc_private_guid = params[:guid]
 		if resume_doc_private_guid
 			@resume_doc = ResumeDoc.find_by_private_guid(resume_doc_private_guid)
@@ -46,7 +52,7 @@ class ResumeController < ApplicationController
 		@feedback = {}
 		
 		if @resume_doc
-			feedbacks = ResumeFeedback.where(:resume_doc_guid => @resume_doc.private_guid)
+			feedbacks = ResumeFeedback.where(:resume_doc_guid => @resume_doc.private_guid, :bid => @bid)
 		
 			feedbacks.each do |f|
 				if @feedback[f.bid]

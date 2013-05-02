@@ -1,5 +1,3 @@
-<% first_name = "Adam" %>
-<% person_name = "Adam Parker" %>
 <script src="http://connect.facebook.net/en_US/all.js"></script>
 <script src="/javascript/raphael-min.js" type="text/javascript" charset="utf-8"></script>
 <style type="text/css">
@@ -174,7 +172,7 @@
 					<div id="warningsLabel" class="hide_suggestions_title">Suggested Items to Hide</div>
 					<div id="warnings" style="display:none;"><div style="clear:both;"></div></div>
 				</div>
-				<div onclick="moveToStep2()" class="next_button">
+				<div onclick="saveSafeHTML();moveToStep2();" class="next_button">
 					<b>Done Hiding  &gt;</b>
 				</div>
 			</div>
@@ -327,7 +325,7 @@
 				<div id="feedbacktype1" class="feedback_enabled feedback_tab_left" onclick="setFeedbackMode('1note');">Leave Note</div>
 				<div id="feedbacktype2" class="feedback_disabled feedback_tab" onclick="setFeedbackMode('2annotate');">Draw</div>
 				<div id="feedbacktype3" class="feedback_disabled feedback_tab" onclick="setFeedbackMode('3skills');">Suggest Skills</div>
-				<div id="feedbacktype4" class="feedback_disabled feedback_tab_right" onclick="setFeedbackMode('4endorcement');">Endorse <%=first_name%></div>
+				<div id="feedbacktype4" class="feedback_disabled feedback_tab_right" onclick="setFeedbackMode('4endorcement');">Endorse <%=@resume_doc.owner_name || "Adam"%></div>
 				<div class="clear"></div>
 			</div>
 			<div style="clear:both;"></div>
@@ -584,6 +582,10 @@
 		drawAnnotations();
 	}
 	
+	
+	function saveSafeHTML(){
+			$.post("/resume/ajax_set_safe_html",{id: <%=@resume_doc.id%>, html: $('#resumeHTML').html()});
+	}
 	
 	// LETS FIND THE SENSITIVE INFORMATIOn
 	findSensitiveData();

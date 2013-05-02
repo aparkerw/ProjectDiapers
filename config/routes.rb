@@ -12,6 +12,10 @@ ResumeEdit::Application.routes.draw do
   match 'resume/critique' => 'resume#critique', :as => :resume_critique
   match 'resume/provide_critique' => 'resume#provide_critique', :as => :provide_critique
   match 'same_origin_hook' => 'resume#same_origin_hook', :as => "same_origin_hook"
+  
+  match 'resume/ajax_set_safe_html' => 'resume_docs#ajax_set_safe_html', :as => "ajax_set_safe_html"
+  match 'resume/ajax_add_note' => 'resume_docs#ajax_add_note', :as => "ajax_add_note"
+  
 
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'

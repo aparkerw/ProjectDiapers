@@ -9,17 +9,21 @@
     <th></th>
     <th></th>
     <th></th>
+    <th></th>
+    <th></th>
   </tr>
 
 <% @resume_docs.each do |resume_doc| %>
   <tr>
     <td><%= resume_doc.owner_name %></td>
-    <td><%= resume_doc.original_resume_html %></td>
-    <td><%= resume_doc.safe_resume_html %></td>
+    <td><%= (resume_doc.original_resume_html.blank?) ? "blank" : "set" %></td>
+    <td><%= resume_doc.safe_resume_html.blank? ? "blank" : "set" %></td>
     <td><%= resume_doc.private_guid %></td>
     <td><%= link_to 'Show', resume_doc %></td>
     <td><%= link_to 'Edit', edit_resume_doc_path(resume_doc) %></td>
     <td><%= link_to 'Destroy', resume_doc, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'View RCPage', resume_critique_path(:id => resume_doc.id) %></td>
+    <td><%= link_to 'View Feedback Page', provide_critique_path(:guid => resume_doc.private_guid) %></td>
   </tr>
 <% end %>
 </table>

@@ -25,6 +25,7 @@ class ResumeDocsController < ApplicationController
   # GET /resume_docs/new.json
   def new
     @resume_doc = ResumeDoc.new
+    @resume_doc.private_guid = "RR"+(0...15).map{65.+(rand(25)).chr}.join
 
     respond_to do |format|
       format.html # new.html.erb
@@ -79,5 +80,37 @@ class ResumeDocsController < ApplicationController
       format.html { redirect_to resume_docs_url }
       format.json { head :no_content }
     end
+  end
+  
+  # PUT /resume_docs/1
+  # PUT /resume_docs/1.json
+  def ajax_set_safe_html
+    @resume_doc = ResumeDoc.find(params[:id])
+
+    @resume_doc.safe_resume_html = params[:html]
+    @resume_doc.save
+  	respond_to do |format|
+			format.js
+	  end
+  end
+  
+  def ajax_add_note
+  	if params[:id]
+	  	@resume_feedback = ResumeFeedback.find(params[:id])
+  	end
+  	if @resume_feedback == nil
+  		@resume_feedback = ResumeFeedback.new()
+  	end
+  	@resume_feedback.resume_doc_guid = params[:private_guid]
+		@resume_feedback.name = params[:poster_name]
+		@resume_feedback.feedback_type = 'note'
+		@resume_feedback.note = params[:note]
+		@resume_feedback.bid = params[:bid]
+		@resume_feedback.json_data = params[:json_data]
+		@resume_feedback.save
+
+  	respond_to do |format|
+			format.js
+	  end
   end
 end
