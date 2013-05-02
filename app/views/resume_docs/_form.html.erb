@@ -1,0 +1,33 @@
+<%= form_for(@resume_doc) do |f| %>
+  <% if @resume_doc.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@resume_doc.errors.count, "error") %> prohibited this resume_doc from being saved:</h2>
+
+      <ul>
+      <% @resume_doc.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :owner_name %><br />
+    <%= f.text_field :owner_name %>
+  </div>
+  <div class="field">
+    <%= f.label :original_resume_html %><br />
+    <%= f.text_area :original_resume_html %>
+  </div>
+  <div class="field">
+    <%= f.label :safe_resume_html %><br />
+    <%= f.text_area :safe_resume_html %>
+  </div>
+  <div class="field">
+    <%= f.label :private_guid %><br />
+    <%= f.text_field :private_guid %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

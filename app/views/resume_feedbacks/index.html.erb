@@ -1,0 +1,33 @@
+<h1>Listing resume_feedbacks</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Feedback type</th>
+    <th>Resume doc guid</th>
+    <th>Note</th>
+    <th>Bid</th>
+    <th>Json data</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @resume_feedbacks.each do |resume_feedback| %>
+  <tr>
+    <td><%= resume_feedback.name %></td>
+    <td><%= resume_feedback.feedback_type %></td>
+    <td><%= resume_feedback.resume_doc_guid %></td>
+    <td><%= resume_feedback.note %></td>
+    <td><%= resume_feedback.bid %></td>
+    <td><%= resume_feedback.json_data %></td>
+    <td><%= link_to 'Show', resume_feedback %></td>
+    <td><%= link_to 'Edit', edit_resume_feedback_path(resume_feedback) %></td>
+    <td><%= link_to 'Destroy', resume_feedback, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Resume feedback', new_resume_feedback_path %>

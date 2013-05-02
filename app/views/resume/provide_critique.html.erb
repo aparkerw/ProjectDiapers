@@ -150,14 +150,8 @@
 			<img src="/images/TitleBarIcon.png" align="middle" style="margin-top: -14px;"> Resume Feedback & Endorsements
 		</div>
 		<div style="padding:25px;">
-			<div id="step1Label" style="float:left;width:33%;text-align:center;font-weight:bold;cursor:pointer;" onclick="moveToStep1()">
-				<img src="/images/StepDotActive.png" align="middle" style="margin-top: -10px;" id="step1Image"> Step 1
-			</div>
-			<div id="step2Label" style="float:left;width:33%;text-align:center;cursor:pointer;" onclick="moveToStep2()">
-				<img src="/images/StepDotInactive.png" align="middle" style="margin-top: -10px;" id="step2Image"> Step 2
-			</div>
 			<div id="step3Label" style="float:left;width:33%;text-align:center;cursor:pointer;" onclick="moveToStep3()">
-				<img src="/images/StepDotInactive.png" align="middle" style="margin-top: -10px;" id="step3Image"> Step 3
+				<img src="/images/StepDotActive.png" align="middle" style="margin-top: -10px;" id="step3Image"> Step 3
 			</div>
 			<div style="clear:both;"></div>
 		</div>
@@ -167,87 +161,9 @@
 			<img src="/images/SectionBarTopCap.gif" style="position:absolute;top:0px;left:-6px;">
 			<img src="/images/SectionBarBottomCap.gif" style="position:absolute;bottom:0px;left:-6px;">
 					
-			<div id="step_1_action_panel" style="margin-left:10px;">
-				<div class="step_header">Hide Personal Information</div>
-				<div class="step_description">Take a moment to hide any information you don't want your reviewers to see  by highlighting the content on your resume.</div>
-				<div style="margin-bottom:30px;">
-					<div id="warningsLabel" class="hide_suggestions_title">Suggested Items to Hide</div>
-					<div id="warnings" style="display:none;"><div style="clear:both;"></div></div>
-				</div>
-				<div onclick="moveToStep2()" class="next_button">
-					<b>Done Hiding  &gt;</b>
-				</div>
-			</div>
 			
-			<div id="step_2_action_panel" style="display:none;margin-left:10px;">
-				<div class="step_header">Invite Friends to Review</div>
-				<div class="step_description">Add friends, family or colleagues to help review your resume.  You can also ask them to endorse you or suggest skill for your profile to help employers find you.</div>
-				
-				<div>
-					<center>
-						<div onclick="sendFBInvitation();">
-							<img src="/images/CollaboratorsFacebook.png">
-						</div>
-					</center>
-				</div>
-				<div>
-					<center>
-						<!-- Place this tag where you want the share button to render. -->
-						<div class="g-plus" data-action="share" data-annotation="none" data-height="24"></div>
-						<img src="/images/CollaboratorsGooglePlus.png">
-						
-						<!-- Place this tag after the last share tag. -->
-						<script type="text/javascript">
-							(function() {
-								var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-								po.src = 'https://apis.google.com/js/plusone.js';
-								var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-							})();
-						</script>
-
-					</center>
-				</div>
-				<div>
-					<center>
-						<a onclick="linkedInComposer();" style="cursor:pointer">
-							<img src="/images/CollaboratorsLinkedIn.png">
-						</a>
-
-						<br>
-						<script src="http://platform.linkedin.com/in.js" type="text/javascript"></script>
-						<script type="IN/Share"></script>
-					</center>
-				</div>
-				<div style="width:100%;color:#506bb1;text-align:center;">
-					or
-				</div>
-				<div>
-					<center>
-						<a onclick="gmailComposer();" style="cursor:pointer"><img src="/images/CollaboratorsGmail.png"></a>
-					</center>
-				</div>
-				<div>
-					<center>
-					<div style="width:281px;text-align:left;">
-						<a href="mailto:?to=&subject=Help%20Adam%20review%20his%20resume%20and%20get%20it%20ready%20for%20the%20his%20job%20hunt.&body=http://resumecritique.herokuapp.com/resume/critique?for=SOMELONGUNIQUEIDENTIFIERHERE" style="cursor:pointer;color:#506bb1;text-decoration:none;">+ Add Email Address</a>
-					</div>
-					</center>
-				</div>
-				<div style="padding-bottom:30px;">
-					<h2>Ideal Collaborators</h2>
-						<div id="FBProfilesIdeal"></div>
-					<h2>Collaborators</h2>		
-						<div id="FBProfiles"></div>
-						<div id="SocialUIData" data-controller="member" data-action="profiles" data-params='{"onets":["11-9199.00","41-3099.00","41-3031.02"]}' data-callback='showConnectionsIdeal'></div>
-						<div id="SocialUIData" data-controller="member" data-action="profiles" data-params='{"keywords":"adam"}' data-callback='showConnections'></div>		
-				</div>
-				
-				<div onclick="moveToStep3()" class="next_button">
-					<b>Done Inviting  &gt;</b>
-				</div>
-			</div>
 			
-			<div id="step_3_action_panel" style="display:none;margin-left:10px;">
+			<div id="step_3_action_panel" style="margin-left:10px;">
 				<div class="step_header">Review Your Feedback</div>
 				<div class="step_description">Below you will find the comments and keyword suggestions left by your collaborators.  Just simply scroll over any reviewer to view all of their suggestions.</div>
 				
@@ -323,7 +239,7 @@
 		
 		
 		<div style="width:70%;float:left; max-width:700px;">
-			<div id="feedbackbar" style="float:right;padding-right:30px;display:none;">
+			<div id="feedbackbar" style="float:right;padding-right:30px;">
 				<div id="feedbacktype1" class="feedback_enabled feedback_tab_left" onclick="setFeedbackMode('1note');">Leave Note</div>
 				<div id="feedbacktype2" class="feedback_disabled feedback_tab" onclick="setFeedbackMode('2annotate');">Draw</div>
 				<div id="feedbacktype3" class="feedback_disabled feedback_tab" onclick="setFeedbackMode('3skills');">Suggest Skills</div>
@@ -333,7 +249,7 @@
 			<div style="clear:both;"></div>
 			<div id="resumeHTML" style="max-width:650px;border:1px solid #CCC;margin:10px;padding:10px;margin-top:0px;">
 				<% if @resume_doc %>
-				<%=raw(@resume_doc.original_resume_html)%>
+				<%=raw(@resume_doc.safe_resume_html)%>
 				<% else %>
 				<div id="htmlresume">
 						<div><p style="margin:0pt 0pt 0pt 9pt; text-indent:9pt; text-align:center">
@@ -345,7 +261,7 @@
 
 		<div style="clear:both;"></div>
 		
-		<div id="annotationmessgebar" style="position:fixed; right:0px; top:200px;background-color:#DDD;font-size:12px;color:#888;border:1px solid #888; border-right:0px;padding:10px; border-top-left-radius:10px;border-bottom-left-radius:10px;display:none;">
+		<div id="annotationmessgebar" style="position:fixed; right:0px; top:200px;background-color:#DDD;font-size:12px;color:#888;border:1px solid #888; border-right:0px;padding:10px; border-top-left-radius:10px;border-bottom-left-radius:10px;">
 			leave a note for this annotation
 			<br>
 			<textarea>
@@ -478,53 +394,6 @@
 		buttonDiv.append($("<div style='clear:both;'></div>"));
 		buttonDiv.click(function(){blackoutHighlightedText();$(this).remove();});
 		$("body").append(buttonDiv);
-	}
-
-	function moveToStep1()
-	{
-		clearNoteBubbles();
-		clearNoteCreateBubbles();
-		$("#canvas_container").remove();
-		$("#resumeHTML").css("position","static");
-		$("#step1Label").css({"color":"black","font-weight":"bold"});
-		$("#step1Image").attr("src","/images/StepDotActive.png");
-		$("#step2Label").css({"color":"silver","font-weight":"none"});
-		$("#step2Image").attr("src","/images/StepDotInactive.png");
-		$("#step3Label").css({"color":"silver","font-weight":"none"});
-		$("#step3Image").attr("src","/images/StepDotInactive.png");
-		
-		hideFeedbackBar();
-		
-		clearBlackoutDivs();
-		$("#step_2_action_panel").hide(400, function(){
-			$("#step_3_action_panel").hide(400, function(){			
-				$("#step_1_action_panel").show(400);
-			});
-		});
-	}
-	
-	function moveToStep2()
-	{
-		clearNoteBubbles();
-		clearNoteCreateBubbles();
-		$("#canvas_container").remove();
-		$("#resumeHTML").css("position","static");
-		$("#step1Label").css({"color":"silver","font-weight":"none"});
-		$("#step1Image").attr("src","/images/StepDotInactive.png");
-		$("#step2Label").css({"color":"black","font-weight":"bold"});
-		$("#step2Image").attr("src","/images/StepDotActive.png");
-		$("#step3Label").css({"color":"silver","font-weight":"none"});
-		$("#step3Image").attr("src","/images/StepDotInactive.png");
-
-		hideFeedbackBar();
-
-		clearBlackoutDivs();
-
-		$("#step_1_action_panel").hide(400, function(){
-			$("#step_3_action_panel").hide(400, function(){			
-				$("#step_2_action_panel").show(400);
-			});
-		});
 	}
 	
 	function moveToStep3()

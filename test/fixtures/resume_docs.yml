@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  owner_name: MyString
+  original_resume_html: MyText
+  safe_resume_html: MyText
+  private_guid: MyString
+
+two:
+  owner_name: MyString
+  original_resume_html: MyText
+  safe_resume_html: MyText
+  private_guid: MyString

@@ -12,6 +12,52 @@ class ResumeController < ApplicationController
 	end
 	
 	def critique
+		resume_doc_id = params[:id]
+		if resume_doc_id
+			@resume_doc = ResumeDoc.find(resume_doc_id)
+		end
+		
+		@feedback = {}
+		
+		if @resume_doc
+			feedbacks = ResumeFeedback.where(:resume_doc_guid => @resume_doc.private_guid)
+		
+			feedbacks.each do |f|
+				if @feedback[f.bid]
+					@feedback[f.bid] << f
+				else
+					@feedback[f.bid] = [f]
+				end
+			end
+		end
+		
+		
+		respond_to do |format|
+			format.html
+		end
+	end
+	
+	def provide_critique
+		resume_doc_private_guid = params[:guid]
+		if resume_doc_private_guid
+			@resume_doc = ResumeDoc.find_by_private_guid(resume_doc_private_guid)
+		end
+		
+		@feedback = {}
+		
+		if @resume_doc
+			feedbacks = ResumeFeedback.where(:resume_doc_guid => @resume_doc.private_guid)
+		
+			feedbacks.each do |f|
+				if @feedback[f.bid]
+					@feedback[f.bid] << f
+				else
+					@feedback[f.bid] = [f]
+				end
+			end
+		end
+		
+		
 		respond_to do |format|
 			format.html
 		end

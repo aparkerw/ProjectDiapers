@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @resume_feedback.name %>
+</p>
+
+<p>
+  <b>Feedback type:</b>
+  <%= @resume_feedback.feedback_type %>
+</p>
+
+<p>
+  <b>Resume doc guid:</b>
+  <%= @resume_feedback.resume_doc_guid %>
+</p>
+
+<p>
+  <b>Note:</b>
+  <%= @resume_feedback.note %>
+</p>
+
+<p>
+  <b>Bid:</b>
+  <%= @resume_feedback.bid %>
+</p>
+
+<p>
+  <b>Json data:</b>
+  <%= @resume_feedback.json_data %>
+</p>
+
+
+<%= link_to 'Edit', edit_resume_feedback_path(@resume_feedback) %> |
+<%= link_to 'Back', resume_feedbacks_path %>

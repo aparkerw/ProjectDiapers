@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  feedback_type: MyString
+  resume_doc_guid: MyString
+  note: MyText
+  bid: MyString
+  json_data: MyText
+
+two:
+  name: MyString
+  feedback_type: MyString
+  resume_doc_guid: MyString
+  note: MyText
+  bid: MyString
+  json_data: MyText

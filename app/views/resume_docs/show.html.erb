@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Owner name:</b>
+  <%= @resume_doc.owner_name %>
+</p>
+
+<p>
+  <b>Original resume html:</b>
+  <%= @resume_doc.original_resume_html %>
+</p>
+
+<p>
+  <b>Safe resume html:</b>
+  <%= @resume_doc.safe_resume_html %>
+</p>
+
+<p>
+  <b>Private guid:</b>
+  <%= @resume_doc.private_guid %>
+</p>
+
+
+<%= link_to 'Edit', edit_resume_doc_path(@resume_doc) %> |
+<%= link_to 'Back', resume_docs_path %>

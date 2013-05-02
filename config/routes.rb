@@ -1,9 +1,16 @@
 ResumeEdit::Application.routes.draw do
+  resources :resume_feedbacks
+
+
+  resources :resume_docs
+
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
   match 'resume/convert' => 'resume#convert', :as => :resume_convert
   match 'resume/critique' => 'resume#critique', :as => :resume_critique
+  match 'resume/provide_critique' => 'resume#provide_critique', :as => :provide_critique
   match 'same_origin_hook' => 'resume#same_origin_hook', :as => "same_origin_hook"
 
   # Sample of regular route:

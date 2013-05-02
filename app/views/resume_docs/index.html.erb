@@ -1,0 +1,29 @@
+<h1>Listing resume_docs</h1>
+
+<table>
+  <tr>
+    <th>Owner name</th>
+    <th>Original resume html</th>
+    <th>Safe resume html</th>
+    <th>Private guid</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @resume_docs.each do |resume_doc| %>
+  <tr>
+    <td><%= resume_doc.owner_name %></td>
+    <td><%= resume_doc.original_resume_html %></td>
+    <td><%= resume_doc.safe_resume_html %></td>
+    <td><%= resume_doc.private_guid %></td>
+    <td><%= link_to 'Show', resume_doc %></td>
+    <td><%= link_to 'Edit', edit_resume_doc_path(resume_doc) %></td>
+    <td><%= link_to 'Destroy', resume_doc, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Resume doc', new_resume_doc_path %>
