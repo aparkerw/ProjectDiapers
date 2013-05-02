@@ -393,8 +393,10 @@
 	function findName(HTML){
 		var re = /<%=(@resume_doc)?@resume_doc.owner_name : "Adam Parker"%>/ig;
 		var matches = HTML.match(re);
-		for(var i=0; i < matches.length; i++){
-			addWarningBubble(matches[i],"Name");
+		if(matches != null){
+			for(var i=0; i < matches.length; i++){
+				addWarningBubble(matches[i],"Name");
+			}
 		}
 	}
 	function findAddress(HTML){
