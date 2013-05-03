@@ -435,8 +435,10 @@ function Annotation() {
   	if(name == null || name == ""){
   		name = "anoymous";
   	}
-
-		var json_payload = annotations[0].to_json_string();
+		
+		var the_annotation = annotations[0];
+		the_annotation.note = note;
+		var json_payload = the_annotation.to_json_string();
 		$.post("/resume/ajax_add_annotation",{private_guid: '<%=@resume_doc.private_guid%>', json_data: json_payload, note: note, bid: '<%=@bid%>', poster_name: name});
 		clearAnnotations();
 		annotations[0] = new Annotation();
