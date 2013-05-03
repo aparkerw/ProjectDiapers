@@ -113,4 +113,24 @@ class ResumeDocsController < ApplicationController
 			format.js
 	  end
   end
+  
+  def ajax_add_annotation
+  	if params[:id]
+	  	@resume_feedback = ResumeFeedback.find(params[:id])
+  	end
+  	if @resume_feedback == nil
+  		@resume_feedback = ResumeFeedback.new()
+  	end
+  	@resume_feedback.resume_doc_guid = params[:private_guid]
+		@resume_feedback.name = params[:poster_name]
+		@resume_feedback.feedback_type = 'annotation'
+		@resume_feedback.note = params[:note]
+		@resume_feedback.bid = params[:bid]
+		@resume_feedback.json_data = params[:json_data]
+		@resume_feedback.save
+
+  	respond_to do |format|
+			format.js
+	  end
+  end
 end

@@ -15,6 +15,7 @@ ResumeEdit::Application.routes.draw do
   
   match 'resume/ajax_set_safe_html' => 'resume_docs#ajax_set_safe_html', :as => "ajax_set_safe_html"
   match 'resume/ajax_add_note' => 'resume_docs#ajax_add_note', :as => "ajax_add_note"
+  match 'resume/ajax_add_annotation' => 'resume_docs#ajax_add_annotation', :as => "ajax_add_annotation"
   
 
   # Sample of regular route:
