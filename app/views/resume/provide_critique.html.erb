@@ -22,7 +22,7 @@
 				<% if @poster_name.blank? %>
 				<div class="step_header">Tell us your name</div>
 				<div class="step_description">Please tell us your name so we can tell <%=@resume_doc.owner_name.split(' ').first%> who the feedback is from.</div>
-				<input type="text" id="poster_name" name="poster_name" placeholder="your name"><input type="button" onclick="alert('ss');" value="save" style="color:white;">
+				<input type="text" id="poster_name" name="poster_name" placeholder="your name here"><input type="button" onclick="alert('ss');" value="save" style="color:white;border-radius:3px;">
 				<% else %>
 				<div class="step_header">Welcome back</div>
 				<div class="step_description"><%=@poster_name%>, you can modify and add feedback for <%=@resume_doc.owner_name%></div>
@@ -100,6 +100,7 @@
 			<textarea id="note_text" cols="35" rows="4" style="border:0px;"></textarea>
 			<br>
 			<input type="button" style="background-color:#dd671d;color:white;border:0px;border-radius:5px;" value="save annotation" onclick="ajaxSaveAnnotation(this);"/>
+			<input type="button" style="background-color:#AAAAAA;color:white;border:0px;border-radius:5px;" value="cancel" onclick="cancelAnnotation();"/>
 		</div>
 	</div>
 </center>
@@ -249,7 +250,7 @@ function addNoteCreateBubble(point){
 	var bubble_div = $("<div id='create_note'>");
 	bubble_div.addClass("NoteCreateBubble");
 	bubble_div.css({"top":point.y,"left":point.x,"background-color":"#e0e8f7","border":"3px solid #c0cade"})
-	bubble_div.html('Leave a note:<br><textarea cols="35" rows="4" id="note_text" style="border:0px;"></textarea><br><input type="button" style="background-color:#dd671d;color:white;border:0px;border-radius:5px;" value="done" data-point=\'{"x":'+point.x+',"y":'+point.y+'}\' onclick="ajaxSaveNote(this);">');
+	bubble_div.html('Leave a note:<br><textarea cols="35" rows="4" id="note_text" style="border:0px;"></textarea><br><input type="button" style="background-color:#dd671d;color:white;border:0px;border-radius:5px;" value="done" data-point=\'{"x":'+point.x+',"y":'+point.y+'}\' onclick="ajaxSaveNote(this);"><input type="button" style="background-color:#AAAAAA;color:white;border:0px;border-radius:5px;" value="cancel" onclick="clearNoteCreateBubbles();">');
 	$("#resumeHTML").append(bubble_div);
 	setTimeout(function(){$("#note_text").focus();},50);
 }
@@ -499,6 +500,12 @@ function addAnnotationToList(annotation){
 		$("#note_text").val('');
 		$("#annotationmessgebar").hide(100);
 		addAnnotationToList(the_annotation);
+  }
+  
+  function cancelAnnotation(){
+ 		clearAnnotations();
+		$("#annotationmessgebar").hide(100);
+		annotations[0] = new Annotation();
   }
 
   
