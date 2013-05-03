@@ -13,7 +13,7 @@
 		</div>
 
 
-		<div style="float:left;width:340px;border-left:7px solid #506bb1;margin-left:-2px;position:relative;">
+		<div style="float:left;width:330px;border-left:7px solid #506bb1;margin-left:-2px;position:relative;">
 			<img src="/images/SectionBarTopCap.gif" style="position:absolute;top:0px;left:-6px;">
 			<img src="/images/SectionBarBottomCap.gif" style="position:absolute;bottom:0px;left:-6px;">
 					
@@ -28,7 +28,7 @@
 				
 				<div class="ReviewerFeedback">
 					<% @feedback.each do |feedback| %>
-					<div class="Person" id="1">
+					<div class="Person" id="my_feedback">
 						<% feedback[1].each do |f| %>
 						<div class="Item Active" id="<%=f.id%>" data-person_id="<%=f.bid%>" data-feedback_type="<%=f.feedback_type%>" onclick="showFeedback(this);" data-payload='<%=f.json_data%>'>
 							<div style="float:left;"><img src="/images/<%=(f.feedback_type == 'note')? "Note" : "Draw"%>Icon.png"></div>
@@ -254,6 +254,20 @@ function addNoteBubble(note, point){
   	});
   }
   
+function addNoteToList(note, json_string){
+	var new_annotation = $("<div>");
+	new_annotation.attr('class','Item Active');
+	new_annotation.data('feedback_type','note');
+	new_annotation.data('payload',JSON.parse(json_string));
+	new_annotation.click(function(){showFeedback(this);});
+	new_annotation.append($('<div style="float:left;"><img src="/images/NoteIcon.png"></div>'));
+	new_annotation.append($('<div style="float:left;padding-left:10px;width:80%;">'+note+'</div>'));
+	new_annotation.append($('<div style="clear:both;"></div>'));
+						
+	var clear_div = $("<div class='clear'></div>");
+	$("#my_feedback").append(new_annotation).append(clear_div);
+}
+  
   function ajaxSaveNote(sender){
   	
   	var note = $(sender).parents("#create_note").children("#note_text").val();
@@ -267,6 +281,7 @@ function addNoteBubble(note, point){
 		  var json_payload = '{"note": "'+note+'","position":{"x":' + $(sender).data('point').x + ',"y":'+$(sender).data('point').y+'}}';
 			$.post("/resume/ajax_add_note",{private_guid: '<%=@resume_doc.private_guid%>', json_data: json_payload, note: note, bid: '<%=@bid%>', poster_name: name});
   		clearNoteCreateBubbles();
+  		addNoteToList(note, json_payload);
   	}
   }
 
@@ -428,9 +443,26 @@ function Annotation() {
 	}
 }
 
+function addAnnotationToList(annotation){
+	var new_annotation = $("<div>");
+	new_annotation.attr('class','Item Active');
+	new_annotation.data('feedback_type','annotation');
+	new_annotation.data('payload',annotation);
+	new_annotation.click(function(){showFeedback(this);});
+	new_annotation.append($('<div style="float:left;"><img src="/images/DrawIcon.png"></div>'));
+	new_annotation.append($('<div style="float:left;padding-left:10px;width:80%;">'+annotation.note+'</div>'));
+	new_annotation.append($('<div style="clear:both;"></div>'));
+						
+	var clear_div = $("<div class='clear'></div>");
+	$("#my_feedback").append(new_annotation).append(clear_div);
+}
+
 
   function ajaxSaveAnnotation(sender){
   	var note = $(sender).parents("#annotationmessgebar").children("#note_text").val();
+  	if(note == null || note == ""){
+  		note = "- no note -";
+  	}
   	var name = $('#poster_name').val();
   	if(name == null || name == ""){
   		name = "anoymous";
@@ -444,6 +476,7 @@ function Annotation() {
 		annotations[0] = new Annotation();
 		$("#note_text").val('');
 		$("#annotationmessgebar").hide(100);
+		addAnnotationToList(the_annotation);
   }
 
   
