@@ -227,12 +227,12 @@ body {background-color:#F1F1F1;margin: 0;font-family: helvetica, sans-serif;}
 	
 .keyword_suggestion {
 	float:left;
-	background-color:#A8C9E0;
+	background-color:#b1c7f2;
 	border-radius:4px;
 	margin:4px;
 	padding:4px;
 	font-family:helvetica, sans-serif;
-	color:#16496E;
+	color:#3b5a9b;
 	font-size:13px;
 	cursor:pointer;
 	display:none;

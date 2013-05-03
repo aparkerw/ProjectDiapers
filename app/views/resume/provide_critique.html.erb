@@ -49,17 +49,17 @@
 
 
 				<div style="margin-top:20px">
-					<div class="step_header" style="margin-top:20px;">Suggest Keywords to Add</div>
+					<div class="step_header" style="margin-top:20px;">Suggest Skills to Add</div>
 					<div class="step_description">The following keywords are what you've suggested that <%=@resume_doc.owner_name.split(' ').first%> add.  These keywords will help employers and recruiters find this resume more easily and help identify relevant skills.</div>
 					<input type="text" id="new_keyword" name="new_keyword" placeholder="new keyword suggestion" style="width:200px;padding:10px;" onKeyPress="addKeywordSuggestionBubble(event);">
 						<div id="keywords">
 							<div class="keyword_suggestion" style="display: block;">
-								<div style="float:left;padding:2px;border-right:1px solid #1E608F;" onclick="$(this).parent().remove();">X</div>
+								<div style="float:left;padding:2px;border-right:1px solid #1E608F;" onclick="$(this).parent().hide(200,function(){$(this).remove();});">x&nbsp;</div>
 								<div style="float:left;padding-top:2px;">&nbsp;programmer&nbsp;</div>
 								<div style="clear:both;"></div>
 							</div>
 							<div class="keyword_suggestion" style="display: block;">
-								<div style="float:left;padding:2px;border-right:1px solid #1E608F;" onclick="$(this).parent().remove();">X</div>
+								<div style="float:left;padding:2px;border-right:1px solid #1E608F;" onclick="$(this).parent().hide(200,function(){$(this).remove();});">x&nbsp;</div>
 								<div style="float:left;padding-top:2px;">&nbsp;Objective-C&nbsp;</div>
 								<div style="clear:both;"></div>
 							</div>
@@ -120,7 +120,7 @@
 			message = $("#new_keyword").val();
 			var suggestion = $("<div>");
 			suggestion.addClass('keyword_suggestion');
-			suggestion.append($("<div style='float:left;padding:2px;border-right:1px solid #1E608F;'>X</div>"));
+			suggestion.append($("<div style='float:left;padding:2px;border-right:1px solid #1E608F;'>x&nbsp;</div>"));
 			suggestion.append($("<div style='float:left;padding-top:2px;'>&nbsp;"+message+"&nbsp;</div>"));
 			suggestion.append($("<div style='clear:both;'></div>"));
 			suggestion.data("matchText",message);
