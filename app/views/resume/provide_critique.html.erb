@@ -266,7 +266,7 @@ function addNoteBubble(note, point){
 	var bubble_div = $("<div></div>");
 	bubble_div.addClass("NoteBubble");
 	bubble_div.css({"top":point.y + 25,"left":point.x})
-	bubble_div.html("<img src='/images/NoteIcon.png' style='position: absolute;left: -19px;top: -15px;'>" + note);
+	bubble_div.html('<div class="NoteBubbleArrow"></div>'+note);
 	$("#resumeHTML").append(bubble_div);
 	note_bubbles.push(bubble_div);
 }
