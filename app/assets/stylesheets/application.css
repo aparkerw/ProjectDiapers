@@ -223,3 +223,17 @@ body {background-color:#F1F1F1;margin: 0;font-family: helvetica, sans-serif;}
 		width:400px;
 		text-align:center;
 	}
+	
+	
+.keyword_suggestion {
+	float:left;
+	background-color:#A8C9E0;
+	border-radius:4px;
+	margin:4px;
+	padding:4px;
+	font-family:helvetica, sans-serif;
+	color:#16496E;
+	font-size:13px;
+	cursor:pointer;
+	display:none;
+}

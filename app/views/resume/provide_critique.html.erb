@@ -19,9 +19,15 @@
 					
 			
 			<div style="margin-left:10px;">
+				<% if @poster_name.blank? %>
 				<div class="step_header">Tell us your name</div>
 				<div class="step_description">Please tell us your name so we can tell <%=@resume_doc.owner_name.split(' ').first%> who the feedback is from.</div>
+				<input type="text" id="poster_name" name="poster_name" placeholder="your name"><input type="button" onclick="alert('ss');" value="save" style="color:white;">
+				<% else %>
+				<div class="step_header">Welcome back</div>
+				<div class="step_description"><%=@poster_name%>, you can modify and add feedback for <%=@resume_doc.owner_name%></div>
 				<input type="text" id="poster_name" name="poster_name" placeholder="your name">
+				<% end %>
 
 
 				<div class="step_header" style="margin-top:20px">Your Feedback</div>
@@ -42,10 +48,25 @@
 				</div>
 
 
-				<div class="step_header" style="margin-top:20px;">Suggest Keywords to Add</div>
-				<div class="step_description">The following keywords are what you've suggested that <%=@resume_doc.owner_name.split(' ').first%> add.  These keywords will help employers and recruiters find this resume more easily and help identify relevant skills.</div>
-				
-			</div>
+				<div style="margin-top:20px">
+					<div class="step_header" style="margin-top:20px;">Suggest Keywords to Add</div>
+					<div class="step_description">The following keywords are what you've suggested that <%=@resume_doc.owner_name.split(' ').first%> add.  These keywords will help employers and recruiters find this resume more easily and help identify relevant skills.</div>
+					<input type="text" id="new_keyword" name="new_keyword" placeholder="new keyword suggestion" style="width:200px;padding:10px;" onKeyPress="addKeywordSuggestionBubble(event);">
+						<div id="keywords">
+							<div class="keyword_suggestion" style="display: block;">
+								<div style="float:left;padding:2px;border-right:1px solid #1E608F;" onclick="$(this).parent().remove();">X</div>
+								<div style="float:left;padding-top:2px;">&nbsp;programmer&nbsp;</div>
+								<div style="clear:both;"></div>
+							</div>
+							<div class="keyword_suggestion" style="display: block;">
+								<div style="float:left;padding:2px;border-right:1px solid #1E608F;" onclick="$(this).parent().remove();">X</div>
+								<div style="float:left;padding-top:2px;">&nbsp;Objective-C&nbsp;</div>
+								<div style="clear:both;"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+
 			
 		</div>
 		
@@ -94,21 +115,22 @@
 	var highlightedText = null;
 	
 
-	function addWarningBubble(message, type){
-		$("#warnings").show(100);
-		$("#warningsLabel").show(100);
-		var newWarning = $("<div>");
-		newWarning.addClass('private_data_bubble');
-		newWarning.append($("<div style='float:left;padding:2px;border-right:1px solid #1E608F;'>X</div>"));
-		newWarning.append($("<div style='float:left;padding-top:2px;'>&nbsp;"+message+"&nbsp;</div>"));
-		newWarning.append($("<div style='clear:both;'></div>"));
-		newWarning.data("matchText",message);
-		newWarning.click(function(){
-			blackOutText($(this).data("matchText"));
-			$(this).hide(200,function(){$(this).remove();});
-		});
-		$("#warnings").prepend(newWarning);
-		newWarning.show(1000);
+	function addKeywordSuggestionBubble(e){
+		if(e.keyCode == 13){
+			message = $("#new_keyword").val();
+			var suggestion = $("<div>");
+			suggestion.addClass('keyword_suggestion');
+			suggestion.append($("<div style='float:left;padding:2px;border-right:1px solid #1E608F;'>X</div>"));
+			suggestion.append($("<div style='float:left;padding-top:2px;'>&nbsp;"+message+"&nbsp;</div>"));
+			suggestion.append($("<div style='clear:both;'></div>"));
+			suggestion.data("matchText",message);
+			suggestion.click(function(){
+				$(this).hide(200,function(){$(this).remove();});
+			});
+			$("#keywords").append(suggestion);
+			suggestion.show(200);
+			message = $("#new_keyword").val('');
+		}
 	}
 	
 	
