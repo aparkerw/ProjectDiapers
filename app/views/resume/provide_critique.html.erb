@@ -33,9 +33,9 @@
 				<div class="step_header" style="margin-top:20px">Your Feedback</div>
 				
 				<div class="ReviewerFeedback">
-					<% @feedback.each do |feedback| %>
 					<div class="Person" id="my_feedback">
-						<% feedback[1].each do |f| %>
+						<% if @feedback && @feedback.first %>
+						<% @feedback.first[1].each do |f| %>
 						<div class="Item Active" id="<%=f.id%>" data-person_id="<%=f.bid%>" data-feedback_type="<%=f.feedback_type%>" onclick="showFeedback(this);" data-payload='<%=f.json_data%>'>
 							<div style="float:left;"><img src="/images/<%=(f.feedback_type == 'note')? "Note" : "Draw"%>Icon.png"></div>
 							<div style="float:left;padding-left:10px;width:80%;"><%=f.note%></div>
@@ -43,8 +43,8 @@
 						</div>
 						<div class="clear"></div>
 						<% end %>
+						<% end %>
 					</div>
-					<% end %>
 				</div>
 
 

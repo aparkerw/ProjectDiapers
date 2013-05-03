@@ -116,7 +116,7 @@
 				<div class="step_description">Below you will find the comments and keyword suggestions left by your collaborators.  Just simply scroll over any reviewer to view all of their suggestions.</div>
 				
 				<% if @feedback.count > 0 %>
-				<div class="ReviewerFeedback">
+				<div id="ReviewerFeedback" class="ReviewerFeedback">
 					<% @feedback.each do |feedback| %>
 					<div class="Person" id="1">
 						<div class="Name">
@@ -179,6 +179,10 @@
 					</div>
 				</div>
 				<% end %>
+				<div style="float:right;margin-top:5px;">
+					<a onclick="reloadFeedbackAndSkills();" style="color:silver;">[reload]</a>
+				</div>
+				<div style="clear:both;"></div>
 
 				<div style="margin-top:20px">
 					<div class="step_header">Suggested Skills</div>
@@ -407,8 +411,33 @@
 		});
 	}
 	
+	function reloadFeedbackAndSkills()
+	{
+			 $.ajax({
+				 dataType: 'jsonp',
+				 data: {"guid":"<%=@resume_doc.private_guid%>"},
+				 jsonp: 'callback',
+				 url: '/resume/ajax_get_feedback',
+				 success: function (payload) {
+				 	$("#ReviewerFeedback").html(payload.html);
+					 console.log(payload.html);
+				 }
+			 });
+			 
+			 $.ajax({
+				 dataType: 'jsonp',
+				 data: {"guid":"<%=@resume_doc.private_guid%>"},
+				 jsonp: 'callback',
+				 url: '/resume/ajax_get_skills',
+				 success: function (payload) {
+					 console.log(payload.html);
+				 }
+			 });
+	}
+	
 	function moveToStep3()
 	{
+		reloadFeedbackAndSkills();
 		$("#step1Label").css({"color":"silver","font-weight":"none"});
 		$("#step1Image").attr("src","/images/StepDotInactive.png");
 		$("#step2Label").css({"color":"silver","font-weight":"none"});

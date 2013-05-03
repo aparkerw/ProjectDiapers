@@ -1,0 +1,16 @@
+<% feedback.each do |feedback| %>
+<div class="Person" id="1">
+	<div class="Name">
+		<%= feedback[1].first.name%>
+		<div class="FeedbackCount"><%= feedback[1].count%></div>
+	</div>
+	<% feedback[1].each do |f| %>
+	<div class="Item Active" id="<%=f.id%>" data-person_id="<%=f.bid%>" data-feedback_type="<%=f.feedback_type%>" onclick="showFeedback(this);" data-payload='<%=f.json_data%>'>
+		<div style="float:left;"><img src="/images/<%=(f.feedback_type == 'note')? "Note" : "Draw"%>Icon.png"></div>
+		<div style="float:left;padding-left:10px;width:80%;"><%=f.note%></div>
+		<div style="clear:both;"></div>
+	</div>
+	<div class="clear"></div>
+	<% end %>
+</div>
+<% end %>

@@ -74,4 +74,5 @@ class ResumeController < ApplicationController
 	  	format.html { render :layout => nil}
 	  end
   end
+
 end

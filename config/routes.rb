@@ -1,4 +1,7 @@
 ResumeEdit::Application.routes.draw do
+  resources :skill_suggestions
+
+
   resources :resume_feedbacks
 
 
@@ -16,6 +19,11 @@ ResumeEdit::Application.routes.draw do
   match 'resume/ajax_set_safe_html' => 'resume_docs#ajax_set_safe_html', :as => "ajax_set_safe_html"
   match 'resume/ajax_add_note' => 'resume_docs#ajax_add_note', :as => "ajax_add_note"
   match 'resume/ajax_add_annotation' => 'resume_docs#ajax_add_annotation', :as => "ajax_add_annotation"
+  match 'resume/ajax_get_feedback' => 'resume_docs#ajax_get_feedback', :as => "ajax_get_feedback"
+  match 'resume/ajax_get_skills' => 'resume_docs#ajax_get_skills', :as => "ajax_get_skills"
+
+  match 'skill_suggestion/ajax_add_skill' => 'skill_suggestion#ajax_add_skill', :as => "ajax_add_skill"
+  match 'skill_suggestion/ajax_remove_skill' => 'skill_suggestion#ajax_remove_skill', :as => "ajax_remove_skill"  
   
 
   # Sample of regular route:

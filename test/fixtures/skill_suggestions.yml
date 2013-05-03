@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  skill: MyString
+  resume_doc_guid: MyString
+  bid: MyString
+
+two:
+  skill: MyString
+  resume_doc_guid: MyString
+  bid: MyString

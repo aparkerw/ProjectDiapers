@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130502145628) do
+ActiveRecord::Schema.define(:version => 20130503163342) do
 
   create_table "resume_docs", :force => true do |t|
     t.string   "owner_name"
@@ -29,6 +29,14 @@ ActiveRecord::Schema.define(:version => 20130502145628) do
     t.text     "note"
     t.string   "bid"
     t.text     "json_data"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  create_table "skill_suggestions", :force => true do |t|
+    t.string   "skill"
+    t.string   "resume_doc_guid"
+    t.string   "bid"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
   end

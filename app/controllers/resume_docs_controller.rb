@@ -133,4 +133,33 @@ class ResumeDocsController < ApplicationController
 			format.js
 	  end
   end
+  
+  def ajax_get_feedback
+  	private_guid = params[:guid]
+  	@feedback = {}
+  	
+		if !private_guid.blank?
+			feedbacks = ResumeFeedback.where(:resume_doc_guid => private_guid)
+		
+			feedbacks.each do |f|
+				if @feedback[f.bid]
+					@feedback[f.bid] << f
+				else
+					@feedback[f.bid] = [f]
+				end
+			end
+		end
+		
+  	resp = {}
+		resp["html"] = render_to_string(:action => "feedback", :layout => false, :locals=>{:feedback => @feedback})
+		render :json => resp.to_json, :callback => params[:callback]
+  end
+  
+  def ajax_get_skills
+  
+  	resp = {}
+		resp["html"] = render_to_string(:action => "skills", :layout => false, :locals=>{})
+		render :json => resp.to_json, :callback => params[:callback]
+  end
+  
 end

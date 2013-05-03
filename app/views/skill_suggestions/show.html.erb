@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Skill:</b>
+  <%= @skill_suggestion.skill %>
+</p>
+
+<p>
+  <b>Resume doc guid:</b>
+  <%= @skill_suggestion.resume_doc_guid %>
+</p>
+
+<p>
+  <b>Bid:</b>
+  <%= @skill_suggestion.bid %>
+</p>
+
+
+<%= link_to 'Edit', edit_skill_suggestion_path(@skill_suggestion) %> |
+<%= link_to 'Back', skill_suggestions_path %>

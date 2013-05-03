@@ -1,0 +1,27 @@
+<h1>Listing skill_suggestions</h1>
+
+<table>
+  <tr>
+    <th>Skill</th>
+    <th>Resume doc guid</th>
+    <th>Bid</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @skill_suggestions.each do |skill_suggestion| %>
+  <tr>
+    <td><%= skill_suggestion.skill %></td>
+    <td><%= skill_suggestion.resume_doc_guid %></td>
+    <td><%= skill_suggestion.bid %></td>
+    <td><%= link_to 'Show', skill_suggestion %></td>
+    <td><%= link_to 'Edit', edit_skill_suggestion_path(skill_suggestion) %></td>
+    <td><%= link_to 'Destroy', skill_suggestion, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Skill suggestion', new_skill_suggestion_path %>
