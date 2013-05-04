@@ -187,32 +187,14 @@
 				<div style="margin-top:20px">
 					<div class="step_header">Suggested Skills</div>
 					<div class="step_description">Here are keywords the people have suggested.  Click the word to add it to your resume or click the X to remove.</div>
-					<div>
-						<div class="keyword_suggestion" style="display: block;">
-							<div style="float:left;padding:2px;border-right:1px solid #1E608F;" onclick="$(this).parent().hide(200,function(){$(this).remove();});">x&nbsp;</div>
-							<div style="float:left;padding-top:2px;">&nbsp;programmer&nbsp;</div>
-							<div style="clear:both;"></div>
-						</div>
-						<div class="keyword_suggestion" style="display: block;">
-							<div style="float:left;padding:2px;border-right:1px solid #1E608F;" onclick="$(this).parent().hide(200,function(){$(this).remove();});">x&nbsp;</div>
-							<div style="float:left;padding-top:2px;">&nbsp;java&nbsp;</div>
-							<div style="clear:both;"></div>
-						</div>
-						<div class="keyword_suggestion" style="display: block;">
-							<div style="float:left;padding:2px;border-right:1px solid #1E608F;" onclick="$(this).parent().hide(200,function(){$(this).remove();});">x&nbsp;</div>
-							<div style="float:left;padding-top:2px;">&nbsp;C++&nbsp;</div>
-							<div style="clear:both;"></div>
-						</div>
-						<div class="keyword_suggestion" style="display: block;">
-							<div style="float:left;padding:2px;border-right:1px solid #1E608F;" onclick="$(this).parent().hide(200,function(){$(this).remove();});">x&nbsp;</div>
-							<div style="float:left;padding-top:2px;">&nbsp;SixSigma&nbsp;</div>
-							<div style="clear:both;"></div>
-						</div>
-						<div class="keyword_suggestion" style="display: block;">
-							<div style="float:left;padding:2px;border-right:1px solid #1E608F;" onclick="$(this).parent().hide(200,function(){$(this).remove();});">x&nbsp;</div>
-							<div style="float:left;padding-top:2px;">&nbsp;Objective-C&nbsp;</div>
-							<div style="clear:both;"></div>
-						</div>
+					<div id="SkillSuggestions">
+							<% @skills.each do |skill| %>
+							<div class="keyword_suggestion" style="display: block;">
+								<div style="float:left;padding:2px;border-right:1px solid #1E608F;" onclick="removeSkill(this, <%=skill.id%>);">x&nbsp;</div>
+								<div style="float:left;padding-top:2px;">&nbsp;<%=skill.skill%>&nbsp;</div>
+								<div style="clear:both;"></div>
+							</div>
+							<% end %>
 					</div>
 				</div>
 				
@@ -420,7 +402,6 @@
 				 url: '/resume/ajax_get_feedback',
 				 success: function (payload) {
 				 	$("#ReviewerFeedback").html(payload.html);
-					 console.log(payload.html);
 				 }
 			 });
 			 
@@ -430,7 +411,7 @@
 				 jsonp: 'callback',
 				 url: '/resume/ajax_get_skills',
 				 success: function (payload) {
-					 console.log(payload.html);
+				 	$("#SkillSuggestions").html(payload.html);
 				 }
 			 });
 	}
@@ -759,4 +740,18 @@ function showFeedback(sender) {
 	}
 }
 
+</script>
+
+
+<script type="text/javascript">
+
+/**************************************************************/
+/*  All of the logic needed for the skills management  */
+/**************************************************************/
+
+	function removeSkill(sender, id){
+		$.post("/skill_suggestions/ajax_remove_skill",{id: id});
+		$(sender).parent().hide(200,function(){$(sender).remove();});
+	}
+	
 </script>

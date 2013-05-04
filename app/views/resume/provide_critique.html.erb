@@ -53,16 +53,13 @@
 					<div class="step_description">The following keywords are what you've suggested that <%=@resume_doc.owner_name.split(' ').first%> add.  These keywords will help employers and recruiters find this resume more easily and help identify relevant skills.</div>
 					<input type="text" id="new_keyword" name="new_keyword" placeholder="new keyword suggestion" style="width:200px;padding:10px;" onKeyPress="addKeywordSuggestionBubble(event);">
 						<div id="keywords">
+							<% @skills.each do |skill| %>
 							<div class="keyword_suggestion" style="display: block;">
-								<div style="float:left;padding:2px;border-right:1px solid #1E608F;" onclick="$(this).parent().hide(200,function(){$(this).remove();});">x&nbsp;</div>
-								<div style="float:left;padding-top:2px;">&nbsp;programmer&nbsp;</div>
+								<div style="float:left;padding:2px;border-right:1px solid #1E608F;" onclick="removeSkill(this,<%=skill.id%>);">x&nbsp;</div>
+								<div style="float:left;padding-top:2px;">&nbsp;<%=skill.skill%>&nbsp;</div>
 								<div style="clear:both;"></div>
 							</div>
-							<div class="keyword_suggestion" style="display: block;">
-								<div style="float:left;padding:2px;border-right:1px solid #1E608F;" onclick="$(this).parent().hide(200,function(){$(this).remove();});">x&nbsp;</div>
-								<div style="float:left;padding-top:2px;">&nbsp;Objective-C&nbsp;</div>
-								<div style="clear:both;"></div>
-							</div>
+							<% end %>
 						</div>
 					</div>
 				</div>
@@ -118,20 +115,27 @@
 
 	function addKeywordSuggestionBubble(e){
 		if(e.keyCode == 13){
-			message = $("#new_keyword").val();
+			// ajax fire
+			skill = $("#new_keyword").val();
+			$.post("/skill_suggestions/ajax_add_skill",{private_guid: '<%=@resume_doc.private_guid%>', skill: skill, bid: '<%=@bid%>'});
 			var suggestion = $("<div>");
 			suggestion.addClass('keyword_suggestion');
 			suggestion.append($("<div style='float:left;padding:2px;border-right:1px solid #1E608F;'>x&nbsp;</div>"));
-			suggestion.append($("<div style='float:left;padding-top:2px;'>&nbsp;"+message+"&nbsp;</div>"));
+			suggestion.append($("<div style='float:left;padding-top:2px;'>&nbsp;"+skill+"&nbsp;</div>"));
 			suggestion.append($("<div style='clear:both;'></div>"));
-			suggestion.data("matchText",message);
 			suggestion.click(function(){
 				$(this).hide(200,function(){$(this).remove();});
 			});
 			$("#keywords").append(suggestion);
 			suggestion.show(200);
-			message = $("#new_keyword").val('');
+			$("#new_keyword").val('');
 		}
+	}
+	
+	
+	function removeSkill(sender, id){
+		$.post("/skill_suggestions/ajax_remove_skill",{id: id});
+		$(sender).parent().hide(200,function(){$(sender).remove();});
 	}
 	
 	

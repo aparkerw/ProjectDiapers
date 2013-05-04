@@ -156,9 +156,11 @@ class ResumeDocsController < ApplicationController
   end
   
   def ajax_get_skills
-  
+  	private_guid = params[:guid]
+  	skills = SkillSuggestion.find_all_by_resume_doc_guid(private_guid) 	
+		
   	resp = {}
-		resp["html"] = render_to_string(:action => "skills", :layout => false, :locals=>{})
+		resp["html"] = render_to_string(:action => "skills", :layout => false, :locals=>{:skills => skills})
 		render :json => resp.to_json, :callback => params[:callback]
   end
   

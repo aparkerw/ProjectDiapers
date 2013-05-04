@@ -80,4 +80,23 @@ class SkillSuggestionsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+	def ajax_add_skill
+		bid = params[:bid]
+		guid = params[:private_guid]
+		skill = params[:skill]
+		skill_suggestion = SkillSuggestion.new(:bid => bid, :resume_doc_guid => guid, :skill => skill)
+		skill_suggestion.save();
+		render :json => {}.to_json
+	end
+	
+	def ajax_remove_skill
+		bid = cookies[:bid]
+		id = params[:id]
+		skill_suggestion = SkillSuggestion.find_by_id_and_bid(id, bid)
+		if skill_suggestion
+			skill_suggestion.destroy
+		end
+		render :json => {}.to_json
+	end
 end

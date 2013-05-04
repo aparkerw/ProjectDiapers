@@ -1,1 +1,7 @@
-<div>skills here</div>
+	<% skills.each do |skill| %>
+	<div class="keyword_suggestion" style="display: block;">
+		<div style="float:left;padding:2px;border-right:1px solid #1E608F;" onclick="removeSkill(this, <%=skill.id%>);">x&nbsp;</div>
+		<div style="float:left;padding-top:2px;">&nbsp;<%=skill.skill%>&nbsp;</div>
+		<div style="clear:both;"></div>
+	</div>
+	<% end %>

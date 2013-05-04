@@ -31,6 +31,8 @@ class ResumeController < ApplicationController
 			end
 		end
 		
+		@skills = SkillSuggestion.where(:resume_doc_guid => @resume_doc.private_guid)
+		
 		
 		respond_to do |format|
 			format.html
@@ -62,6 +64,8 @@ class ResumeController < ApplicationController
 				end
 			end
 		end
+		
+		@skills = SkillSuggestion.where(:resume_doc_guid => @resume_doc.private_guid, :bid => @bid)
 		
 		
 		respond_to do |format|
