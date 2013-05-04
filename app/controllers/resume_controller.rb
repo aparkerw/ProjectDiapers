@@ -46,6 +46,7 @@ class ResumeController < ApplicationController
 		else
 			@bid = cookies[:bid]
 		end
+		@poster_name = cookies[:poster_name]
 		resume_doc_private_guid = params[:guid]
 		if resume_doc_private_guid
 			@resume_doc = ResumeDoc.find_by_private_guid(resume_doc_private_guid)

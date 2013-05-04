@@ -80,4 +80,21 @@ class ResumeFeedbacksController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def ajax_set_poster_name
+  	bid = cookies[:bid]
+  	name = params[:name]
+  	
+  	if !name.blank?
+	  	cookies[:poster_name] = name
+  	
+  		feedbacks = ResumeFeedback.find_all_by_bid(bid)
+	  	feedbacks.each do |f|
+  			f.name = name
+  			f.save
+	  	end
+	  end
+  	
+  	render :json => {}.to_json
+  end
 end

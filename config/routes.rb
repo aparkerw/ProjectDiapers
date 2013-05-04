@@ -21,6 +21,7 @@ ResumeEdit::Application.routes.draw do
   match 'resume/ajax_add_annotation' => 'resume_docs#ajax_add_annotation', :as => "ajax_add_annotation"
   match 'resume/ajax_get_feedback' => 'resume_docs#ajax_get_feedback', :as => "ajax_get_feedback"
   match 'resume/ajax_get_skills' => 'resume_docs#ajax_get_skills', :as => "ajax_get_skills"
+  match 'resume/ajax_set_poster_name' => 'resume_feedbacks#ajax_set_poster_name', :as => "ajax_set_poster_name"
 
   match 'skill_suggestions/ajax_add_skill' => 'skill_suggestions#ajax_add_skill', :as => "ajax_add_skill"
   match 'skill_suggestions/ajax_remove_skill' => 'skill_suggestions#ajax_remove_skill', :as => "ajax_remove_skill"  
