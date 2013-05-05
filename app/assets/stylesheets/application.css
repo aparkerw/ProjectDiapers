@@ -143,6 +143,14 @@ body {background-color:#F1F1F1;margin: 0;font-family: helvetica, sans-serif;}
 	text-align:center;
 }
 
+.feedbackoptions {
+	background-color: #8ba8ea;
+	color: #213b89;
+	margin-top: 1px;
+	margin-bottom: 1px;
+	padding:6px;
+}
+
 	.ReviewerFeedback {
 	}
 	

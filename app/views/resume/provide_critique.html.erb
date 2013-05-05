@@ -77,6 +77,13 @@
 				<div class="clear"></div>
 			</div>
 			<div style="clear:both;"></div>
+			<div id="feedbacktype2Options" class="feedbackoptions" style="display:none;">
+				<div id="drawOption3" style="float:right;background-color:blue;color:blue;padding:1px 4px 1px 4px;border-radius:3px;margin-left:3px;border:1px solid blue;cursor:pointer;" onclick="setBrushColor(3, '#0000ff');">X</div>
+				<div id="drawOption2" style="float:right;background-color:green;color:green;padding:1px 4px 1px 4px;border-radius:3px;margin-left:3px;border:1px solid green;cursor:pointer;" onclick="setBrushColor(2, '#00ff00');">X</div>
+				<div id="drawOption1" style="float:right;background-color:rgb(160, 28, 28);color:rgb(160, 28, 28);padding:1px 4px 1px 4px;border-radius:3px;margin-left:3px;border:1px solid white;cursor:pointer;" onclick="setBrushColor(1, '#ff0000');">X</div>
+				<div style="float:right;font-weight:bold;padding-top:2px;">color:</div>
+				<div style="clear:both;"></div>
+			</div>
 			<div id="resumeHTML" style="max-width:650px;border:1px solid #CCC;margin:10px;padding:10px;margin-top:0px;">
 				<% if @resume_doc %>
 				<%=raw(@resume_doc.safe_resume_html)%>
@@ -147,6 +154,29 @@
 		}
 	}
 	
+	function setBrushColor(optionNumber, color){
+		pen_color = color;
+		switch(optionNumber){
+			case 1:
+				$("#drawOption1").css('border','1px solid white');
+				$("#drawOption2").css('border','1px solid ' + $('#drawOption2').css('background-color'));
+				$("#drawOption3").css('border','1px solid ' + $('#drawOption3').css('background-color'));
+				break;
+			case 2:
+				console.log('2');
+				$("#drawOption1").css('border','1px solid ' + $('#drawOption2').css('background-color'));
+				$("#drawOption2").css('border','1px solid white');
+				$("#drawOption3").css('border','1px solid ' + $('#drawOption3').css('background-color'));
+				break;
+			case 3:
+				console.log('3');
+				$("#drawOption1").css('border','1px solid ' + $('#drawOption1').css('background-color'));
+				$("#drawOption2").css('border','1px solid ' + $('#drawOption2').css('background-color'));
+				$("#drawOption3").css('border','1px solid white');
+				break;
+			}
+	}
+	
 		
 </script>
 
@@ -169,6 +199,7 @@ function setFeedbackMode(switchTo){
 			$("#feedbacktype3").attr('class','feedback_disabled feedback_tab');
 			$("#feedbacktype4").attr('class','feedback_disabled feedback_tab_right');
 			$("#annotationmessgebar").hide(100);
+			$("#feedbacktype2Options").hide(100);
 		break;
 		case '2annotate':
 			edit_mode = "annotation";
@@ -177,6 +208,7 @@ function setFeedbackMode(switchTo){
 			$("#feedbacktype2").attr('class','feedback_enabled feedback_tab');
 			$("#feedbacktype3").attr('class','feedback_disabled feedback_tab');
 			$("#feedbacktype4").attr('class','feedback_disabled feedback_tab_right');
+			$("#feedbacktype2Options").show(100);
 			
 			var an_annotation = new Annotation();
 			annotations = new Array();
@@ -191,12 +223,14 @@ function setFeedbackMode(switchTo){
 			$("#feedbacktype2").attr('class','feedback_disabled feedback_tab');
 			$("#feedbacktype3").attr('class','feedback_enabled feedback_tab');
 			$("#feedbacktype4").attr('class','feedback_disabled feedback_tab_right');
+			$("#feedbacktype2Options").hide(100);
 			
 		break;
 		case '4endorcement':
 			clearAnnotations();
 			edit_mode = "endorcement";
 			$("#annotationmessgebar").hide(100);
+			$("#feedbacktype2Options").hide(100);
 			$("#feedbacktype1").attr('class','feedback_disabled feedback_tab_left');
 			$("#feedbacktype2").attr('class','feedback_disabled feedback_tab');
 			$("#feedbacktype3").attr('class','feedback_disabled feedback_tab');
@@ -227,6 +261,7 @@ function setFeedbackMode(switchTo){
 		      pen_down = true;
 				 	setTimeout(function(){trackMouse();}, 1);
 					current_path = new DrawingPath();
+					current_path.line_color = pen_color;
 					current_path.start_point = new PointV2(e.pageX - $("#resumeHTML").position().left, e.pageY - $("#resumeHTML").position().top);
 				 	curr_annotation.drawings.push(current_path);
 				 	annotations = new Array();
@@ -530,6 +565,7 @@ function addAnnotationToList(annotation){
   var annotations = new Array();
   var edit_mode = "note";
   var note_bubbles = new Array();
+  var pen_color = "#FF0000";
   
 	setupPageForEdit();
   
