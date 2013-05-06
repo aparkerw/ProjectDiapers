@@ -78,9 +78,13 @@
 			</div>
 			<div style="clear:both;"></div>
 			<div id="feedbacktype2Options" class="feedbackoptions" style="display:none;">
-				<div id="drawOption3" style="float:right;background-color:blue;color:blue;padding:1px 4px 1px 4px;border-radius:3px;margin-left:3px;border:1px solid blue;cursor:pointer;" onclick="setBrushColor(3, '#0000ff');">X</div>
-				<div id="drawOption2" style="float:right;background-color:green;color:green;padding:1px 4px 1px 4px;border-radius:3px;margin-left:3px;border:1px solid green;cursor:pointer;" onclick="setBrushColor(2, '#00ff00');">X</div>
-				<div id="drawOption1" style="float:right;background-color:rgb(160, 28, 28);color:rgb(160, 28, 28);padding:1px 4px 1px 4px;border-radius:3px;margin-left:3px;border:1px solid white;cursor:pointer;" onclick="setBrushColor(1, '#ff0000');">X</div>
+				<div id="penModeHighlight" style="float:right;font-weight:bold;padding-top:4px;margin-left:2px;color:#888;cursor:pointer;" onclick="highlightMode();">&nbsp;highlight&nbsp;</div>
+				<div id="penModeDraw" style="float:right;font-weight:bold;padding-top:4px;margin-left:2px;color:#888;cursor:pointer;" onclick="drawMode();">[draw]</div>
+				<div style="float:right;font-weight:bold;padding-top:2px;margin-left:15px;">style:</div>
+				<div id="drawOption4" style="float:right;background-color:#ffff03;color:#ffff03;padding:1px 4px 1px 4px;border-radius:3px;margin-left:3px;border:2px solid #ffff03;cursor:pointer;display:none;" onclick="setBrushColor(4, '#ffff03');">X</div>
+				<div id="drawOption3" style="float:right;background-color:blue;color:blue;padding:1px 4px 1px 4px;border-radius:3px;margin-left:3px;border:2px solid blue;cursor:pointer;" onclick="setBrushColor(3, '#0000ff');">X</div>
+				<div id="drawOption2" style="float:right;background-color:green;color:green;padding:1px 4px 1px 4px;border-radius:3px;margin-left:3px;border:2px solid green;cursor:pointer;" onclick="setBrushColor(2, '#00ff00');">X</div>
+				<div id="drawOption1" style="float:right;background-color:rgb(160, 28, 28);color:rgb(160, 28, 28);padding:1px 4px 1px 4px;border-radius:3px;margin-left:3px;border:2px solid white;cursor:pointer;" onclick="setBrushColor(1, '#ff0000');">X</div>
 				<div style="float:right;font-weight:bold;padding-top:2px;">color:</div>
 				<div style="clear:both;"></div>
 			</div>
@@ -158,23 +162,56 @@
 		pen_color = color;
 		switch(optionNumber){
 			case 1:
-				$("#drawOption1").css('border','1px solid white');
-				$("#drawOption2").css('border','1px solid ' + $('#drawOption2').css('background-color'));
-				$("#drawOption3").css('border','1px solid ' + $('#drawOption3').css('background-color'));
+				$("#drawOption1").css('border','2px solid white');
+				$("#drawOption2").css('border','2px solid ' + $('#drawOption2').css('background-color'));
+				$("#drawOption3").css('border','2px solid ' + $('#drawOption3').css('background-color'));
+				$("#drawOption4").css('border','2px solid ' + $('#drawOption4').css('background-color'));
 				break;
 			case 2:
 				console.log('2');
-				$("#drawOption1").css('border','1px solid ' + $('#drawOption2').css('background-color'));
-				$("#drawOption2").css('border','1px solid white');
-				$("#drawOption3").css('border','1px solid ' + $('#drawOption3').css('background-color'));
+				$("#drawOption1").css('border','2px solid ' + $('#drawOption1').css('background-color'));
+				$("#drawOption2").css('border','2px solid white');
+				$("#drawOption3").css('border','2px solid ' + $('#drawOption3').css('background-color'));
+				$("#drawOption4").css('border','2px solid ' + $('#drawOption4').css('background-color'));
 				break;
 			case 3:
 				console.log('3');
-				$("#drawOption1").css('border','1px solid ' + $('#drawOption1').css('background-color'));
-				$("#drawOption2").css('border','1px solid ' + $('#drawOption2').css('background-color'));
-				$("#drawOption3").css('border','1px solid white');
+				$("#drawOption1").css('border','2px solid ' + $('#drawOption1').css('background-color'));
+				$("#drawOption2").css('border','2px solid ' + $('#drawOption2').css('background-color'));
+				$("#drawOption3").css('border','2px solid white');
+				$("#drawOption4").css('border','2px solid ' + $('#drawOption4').css('background-color'));
+				break;
+			case 4:
+				console.log('3');
+				$("#drawOption1").css('border','2px solid ' + $('#drawOption1').css('background-color'));
+				$("#drawOption2").css('border','2px solid ' + $('#drawOption2').css('background-color'));
+				$("#drawOption3").css('border','2px solid ' + $('#drawOption3').css('background-color'));
+				$("#drawOption4").css('border','2px solid white');
 				break;
 			}
+	}
+	
+	function drawMode(){
+		if(pen_width != 5){
+			pen_color = last_pen_color;
+			pen_width = 5;
+			$("#penModeHighlight").html("&nbsp;highlight&nbsp;");
+			$("#penModeDraw").html("[draw]");
+			$("#drawOption4").hide(100);
+			setBrushColor(1, '#ff0000');
+		}
+	}
+	
+	function highlightMode(){
+		if(pen_width != 15){
+			last_pen_color = pen_color;
+			pen_color = '#FFFF03';
+			pen_width = 15;
+			$("#penModeHighlight").html("[highlight]");
+			$("#penModeDraw").html("&nbsp;draw&nbsp;");
+			$("#drawOption4").show(100);
+			setBrushColor(4, '#ffff03');
+		}
 	}
 	
 		
@@ -262,6 +299,7 @@ function setFeedbackMode(switchTo){
 				 	setTimeout(function(){trackMouse();}, 1);
 					current_path = new DrawingPath();
 					current_path.line_color = pen_color;
+					current_path.line_width = pen_width;
 					current_path.start_point = new PointV2(e.pageX - $("#resumeHTML").position().left, e.pageY - $("#resumeHTML").position().top);
 				 	curr_annotation.drawings.push(current_path);
 				 	annotations = new Array();
@@ -382,7 +420,11 @@ function addNoteToList(note, json_string){
 				for(var j=0; j < annotation.drawings.length; j++){
 					var a_path = annotation.drawings[j];
 		  		var lines = paper.path(a_path.to_path_string());
-			  	lines.attr({stroke: a_path.line_color, 'stroke-width': 5, 'stroke-opacity':0.5});
+		  		var width = a_path.line_width;
+		  		if(width == null){
+		  			width = 5;
+		  		}
+			  	lines.attr({stroke: a_path.line_color, 'stroke-width': width, 'stroke-opacity':0.5});
 			  }
 		  }
 	  }
@@ -429,6 +471,7 @@ function PointV2 (x,y) {
 function DrawingPath()
 {
 	this.line_color = "#FF0000";
+	this.line_width = 5;
 	this.start_point = null;
 	this.last_point = null;
 	this.path_elements = new Array();
@@ -450,7 +493,7 @@ function DrawingPath()
 			}	
 		}
 		path_elements_str += "]";
-		var ret_str = '{"line_color":"'+this.line_color+'","start_point":{"x":'+this.start_point.x+',"y":'+this.start_point.y+'},"path_elements":'+path_elements_str+'}';
+		var ret_str = '{"line_color":"'+this.line_color+'","line_width":"'+this.line_width+'","start_point":{"x":'+this.start_point.x+',"y":'+this.start_point.y+'},"path_elements":'+path_elements_str+'}';
 		return ret_str;
 	},
 	this.append_point_to_path = function(a_point){
@@ -474,6 +517,7 @@ function DrawingPath()
 	}
 	this.initWithJSON = function(json){
 		this.line_color = json.line_color;
+		this.line_width = json.line_width;
 		this.start_point = json.start_point;
 		for(var i = 0; i < json.path_elements.length; i ++){
 			var delta_point = new PointV2(json.path_elements[i].x,json.path_elements[i].y);
@@ -566,6 +610,8 @@ function addAnnotationToList(annotation){
   var edit_mode = "note";
   var note_bubbles = new Array();
   var pen_color = "#FF0000";
+  var last_pen_color = "#FF0000";
+  var pen_width = 5;
   
 	setupPageForEdit();
   
