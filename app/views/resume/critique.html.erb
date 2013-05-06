@@ -560,7 +560,11 @@ function addNoteBubble(note, point){
 				for(var j=0; j < annotation.drawings.length; j++){
 					var a_path = annotation.drawings[j];
 		  		var lines = paper.path(a_path.to_path_string());
-			  	lines.attr({stroke: a_path.line_color, 'stroke-width': 5, 'stroke-opacity':0.5});
+		  		var width = a_path.line_width;
+		  		if(width == null){
+		  			width = 5;
+		  		}
+			  	lines.attr({stroke: a_path.line_color, 'stroke-width': width, 'stroke-opacity':0.5});
 			  }
 		  }
 	  }
@@ -592,6 +596,7 @@ function PointV2 (x,y) {
 function DrawingPath()
 {
 	this.line_color = "#FF0000";
+	this.line_width = 5;
 	this.start_point = null;
 	this.last_point = null;
 	this.path_elements = new Array();
@@ -613,7 +618,7 @@ function DrawingPath()
 			}	
 		}
 		path_elements_str += "]";
-		var ret_str = '{"line_color":"'+this.line_color+'","start_point":{"x":'+this.start_point.x+',"y":'+this.start_point.y+'},"path_elements":'+path_elements_str+'}';
+		var ret_str = '{"line_color":"'+this.line_color+'","line_width":"'+this.line_width+'","start_point":{"x":'+this.start_point.x+',"y":'+this.start_point.y+'},"path_elements":'+path_elements_str+'}';
 		return ret_str;
 	},
 	this.append_point_to_path = function(a_point){
@@ -637,6 +642,7 @@ function DrawingPath()
 	}
 	this.initWithJSON = function(json){
 		this.line_color = json.line_color;
+		this.line_width = json.line_width;
 		this.start_point = json.start_point;
 		for(var i = 0; i < json.path_elements.length; i ++){
 			var delta_point = new PointV2(json.path_elements[i].x,json.path_elements[i].y);
