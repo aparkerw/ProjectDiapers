@@ -97,4 +97,18 @@ class ResumeFeedbacksController < ApplicationController
   	
   	render :json => {}.to_json
   end
+  
+  def ajax_remove_feedback
+  	bid = cookies[:bid]
+  	id = params[:id]
+  	
+  	if !bid.blank? and !id.blank?
+  		feedback = ResumeFeedback.find_by_id_and_bid(id, bid)
+  		if feedback
+  			feedback.destroy
+  		end
+  	end
+  	
+  	render :json => {}.to_json
+  end
 end

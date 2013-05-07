@@ -20,9 +20,9 @@
 			
 			<div style="margin-left:10px;">
 				<% if @poster_name.blank? %>
-				<div class="step_header">Tell us your name</div>
-				<div class="step_description">Please tell us your name so we can tell <%=@resume_doc.owner_name.split(' ').first%> who the feedback is from.</div>
-				<input type="text" id="poster_name" name="poster_name" placeholder="your name here"><input type="button" onclick="setPosterName();" value="save" style="color:white;border-radius:3px;">
+				<div id="NameTitle" class="step_header">Tell us your name</div>
+				<div id="NameDescription" class="step_description">Please tell us your name so we can tell <%=@resume_doc.owner_name.split(' ').first%> who the feedback is from.</div>
+				<input type="text" id="poster_name" name="poster_name" placeholder="your name here"><input id="poster_name_save" type="button" onclick="setPosterName();" value="save" style="color:white;border-radius:3px;">
 				<% else %>
 				<div class="step_header">Welcome back</div>
 				<div class="step_description"><%=@poster_name%>, you can modify and add feedback for <%=@resume_doc.owner_name%></div>
@@ -36,10 +36,11 @@
 					<div class="Person" id="my_feedback">
 						<% if @feedback && @feedback.first %>
 						<% @feedback.first[1].each do |f| %>
-						<div class="Item Active" id="<%=f.id%>" data-person_id="<%=f.bid%>" data-feedback_type="<%=f.feedback_type%>" onclick="showFeedback(this);" data-payload='<%=f.json_data%>'>
+						<div class="Item Active" id="<%=f.id%>" data-person_id="<%=f.bid%>" data-feedback_type="<%=f.feedback_type%>" onclick="showFeedback(this);" data-payload='<%=f.json_data%>' style="position:relative;">
 							<div style="float:left;"><img src="/images/<%=(f.feedback_type == 'note')? "Note" : "Draw"%>Icon.png"></div>
 							<div style="float:left;padding-left:10px;width:80%;"><%=f.note%></div>
 							<div style="clear:both;"></div>
+							<div onclick="removeFeedback(this, event, <%=f.id%>);" style="position:absolute;right:10px;top:10px;color:#BBB;">x</div>
 						</div>
 						<div class="clear"></div>
 						<% end %>
@@ -156,6 +157,10 @@
 		{
 			$.post("/resume/ajax_set_poster_name",{name: name});
 		}
+		$("#NameTitle").html('Welcome, provide your feedback.');
+		$("#NameDescription").html(name + ', you can modify and add feedback for <%=@resume_doc.owner_name%>');
+		$("#poster_name").hide();
+		$("#poster_name_save").hide();
 	}
 	
 	function setBrushColor(optionNumber, color){
@@ -214,6 +219,12 @@
 		}
 	}
 	
+	function removeFeedback(sender, e, id){
+		$(sender).parent().remove();
+		$.post("/resume/ajax_remove_feedback",{id: id});
+		e.stopPropagation(); // to prevent event from bubbling up
+		e.preventDefault(); // then cancel the event (if it's cancelable)
+	}
 		
 </script>
 
@@ -366,6 +377,7 @@ function addNoteToList(note, json_string){
 	var new_annotation = $("<div>");
 	new_annotation.attr('class','Item Active');
 	new_annotation.data('feedback_type','note');
+	new_annotation.css('position','relative');
 	new_annotation.data('payload',JSON.parse(json_string));
 	new_annotation.click(function(){showFeedback(this);});
 	new_annotation.append($('<div style="float:left;"><img src="/images/NoteIcon.png"></div>'));

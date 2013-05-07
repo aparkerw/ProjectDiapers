@@ -109,9 +109,7 @@ class ResumeDocsController < ApplicationController
 		@resume_feedback.json_data = params[:json_data]
 		@resume_feedback.save
 
-  	respond_to do |format|
-			format.js
-	  end
+		render :json => {}.to_json
   end
   
   def ajax_add_annotation
@@ -129,9 +127,7 @@ class ResumeDocsController < ApplicationController
 		@resume_feedback.json_data = params[:json_data]
 		@resume_feedback.save
 
-  	respond_to do |format|
-			format.js
-	  end
+		render :json => {}.to_json
   end
   
   def ajax_get_feedback
