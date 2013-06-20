@@ -1,6 +1,9 @@
 <script src="http://connect.facebook.net/en_US/all.js"></script>
 <script src="/javascript/raphael-min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/javascript/jquery.easing.1.3.js"></script>
 
+<link href="/SocialResumeReviewTutorial.css" media="all" rel="stylesheet" type="text/css" />
+<script src="/javascript/SeekerTutorial.js"></script>
 <div id="fb-root"></div>
 
 <center>
@@ -9,13 +12,13 @@
 			<img src="/images/headerlogo.png" style="margin-top:4px;margin-left:12px;">
 		</div>
 		<div style="padding:25px;">
-			<div id="step1Label" style="float:left;width:33%;text-align:center;font-weight:bold;cursor:pointer;" onclick="moveToStep1()">
+			<div class="step_1" id="step1Label" style="float:left;width:33%;text-align:center;font-weight:bold;cursor:pointer;" onclick="moveToStep1()">
 				<img src="/images/StepDotActive.png" align="middle" style="margin-top: -10px;" id="step1Image"> Step 1
 			</div>
-			<div id="step2Label" style="float:left;width:33%;text-align:center;cursor:pointer;" onclick="moveToStep2()">
+			<div class="step_2" id="step2Label" style="float:left;width:33%;text-align:center;cursor:pointer;" onclick="moveToStep2()">
 				<img src="/images/StepDotInactive.png" align="middle" style="margin-top: -10px;" id="step2Image"> Step 2
 			</div>
-			<div id="step3Label" style="float:left;width:33%;text-align:center;cursor:pointer;" onclick="moveToStep3()">
+			<div class="step_3" id="step3Label" style="float:left;width:33%;text-align:center;cursor:pointer;" onclick="moveToStep3()">
 				<img src="/images/StepDotInactive.png" align="middle" style="margin-top: -10px;" id="step3Image"> Step 3
 			</div>
 			<div style="clear:both;"></div>
@@ -30,10 +33,10 @@
 				<div class="step_header">Hide Personal Information</div>
 				<div class="step_description">Take a moment to hide any information you don't want your reviewers to see  by highlighting the content on your resume.</div>
 				<div style="margin-bottom:30px;">
-					<div id="warningsLabel" class="hide_suggestions_title">Suggested Items to Hide</div>
-					<div id="warnings" style="display:none;"><div style="clear:both;"></div></div>
+					<div id="warningsLabel" class="step_5 hide_suggestions_title">Suggested Items to Hide</div>
+					<div id="warnings" style="display:none;" class="step_1_warnings"><div style="clear:both;"></div></div>
 				</div>
-				<div onclick="saveSafeHTML();moveToStep2();" class="next_button">
+				<div onclick="saveSafeHTML();moveToStep2();" class="step_6 next_button">
 					<b>Done Hiding  &gt;</b>
 				</div>
 			</div>
@@ -44,7 +47,7 @@
 				
 				<div>
 					<center>
-						<div onclick="sendFBInvitation();">
+						<div onclick="sendFBInvitation();" class="step_2_social">
 							<img src="/images/CollaboratorsFacebook.png">
 						</div>
 					</center>
@@ -85,7 +88,7 @@
 				<div style="width:100%;color:#506bb1;text-align:center;">
 					or
 				</div>
-				<div>
+				<div class="step_2_email">
 					<center>
 						<a onclick="gmailComposer();" style="cursor:pointer"><img src="/images/CollaboratorsGmail.png"></a>
 					</center>
@@ -106,7 +109,7 @@
 						<div id="SocialUIData" data-controller="member" data-action="profiles" data-params='{"keywords":"adam"}' data-callback='showConnections'></div>		
 				</div>
 				
-				<div onclick="moveToStep3()" class="next_button">
+				<div onclick="moveToStep3()" class="next_button step_2_done">
 					<b>Done Inviting  &gt;</b>
 				</div>
 			</div>
@@ -205,7 +208,7 @@
 		
 		<div style="width:70%;float:left; max-width:700px;">
 			<div style="clear:both;"></div>
-			<div id="resumeHTML" style="max-width:650px;border:1px solid #CCC;margin:10px;padding:10px;margin-top:0px;">
+			<div id="resumeHTML" class="step_4" style="max-width:650px;border:1px solid #CCC;margin:10px;padding:10px;margin-top:0px;">
 				<% if @resume_doc %>
 				<%=raw(@resume_doc.original_resume_html)%>
 				<% else %>
